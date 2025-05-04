@@ -139,6 +139,7 @@ function App() {
         />
         {/* arshad */}
         {/* arshad */}
+        {/* arshad */}
         <Route exact path='/colors' element={<ColorsPage />} />
         <Route exact path='/column-chart' element={<ColumnChartPage />} />
         <Route exact path='/company' element={<CompanyPage />} />
