@@ -104,7 +104,7 @@ function App() {
       <RouteScrollToTop />
       <Routes>
         {/* <Route exact path='/' element={<HomePageOne />} /> */}
-        <Route exact path='/index-2' element={<HomePageTwo />} />
+        {/* <Route exact path='/index-2' element={<HomePageTwo />} />
         <Route exact path='/index-3' element={<HomePageThree />} />
         <Route exact path='/index-4' element={<HomePageFour />} />
         <Route exact path='/index-5' element={<HomePageFive />} />
@@ -113,9 +113,12 @@ function App() {
         <Route exact path='/index-8' element={<HomePageEight />} />
         <Route exact path='/index-9' element={<HomePageNine />} />
         <Route exact path='/index-10' element={<HomePageTen />} />
-        <Route exact path='/index-11' element={<HomePageEleven />} />
-        
-        <Route exact path="/settings" element={<ApplicationSettings/>} />
+        <Route exact path='/index-11' element={<HomePageEleven />} /> */}
+        <Route exact path='/' element={<SignInPage />} />
+        <Route exact path='/sign-up' element={<SignUpPage />} />
+
+
+        <Route exact path="/settings" element={<ApplicationSettings />} />
 
         {/* SL */}
         <Route exact path='/add-user' element={<AddUserPage />} />
@@ -163,7 +166,7 @@ function App() {
         <Route exact path='/coming-soon' element={<ComingSoonPage />} />
         <Route exact path='/access-denied' element={<AccessDeniedPage />} />
         <Route exact path='/maintenance' element={<MaintenancePage />} />
-        <Route exact path='/' element={<BlankPagePage />} />
+        <Route exact path='/dashboard' element={<BlankPagePage />} />
 
         <Route exact path='/image-generator' element={<ImageGeneratorPage />} />
         <Route exact path='/image-upload' element={<ImageUploadPage />} />
@@ -195,8 +198,7 @@ function App() {
         <Route exact path='/progress' element={<ProgressPage />} />
         <Route exact path='/radio' element={<RadioPage />} />
         <Route exact path='/role-access' element={<RoleAccessPage />} />
-        <Route exact path='/sign-in' element={<SignInPage />} />
-        <Route exact path='/sign-up' element={<SignUpPage />} />
+
         <Route exact path='/star-rating' element={<StarRatingPage />} />
         <Route exact path='/starred' element={<StarredPage />} />
         <Route exact path='/switch' element={<SwitchPage />} />

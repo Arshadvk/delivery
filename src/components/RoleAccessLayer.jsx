@@ -76,7 +76,6 @@ const RoleAccessLayer = () => {
                                     </th>
                                     <th scope="col">Create Date</th>
                                     <th scope="col">Role </th>
-                                    <th scope="col">Description</th>
                                     <th scope="col" className="text-center">
                                         Status
                                     </th>
@@ -101,12 +100,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>25 Jan 2024</td>
                                     <td>Test</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Active
@@ -147,12 +140,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>25 Jan 2024</td>
                                     <td>Waiter</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Inactive
@@ -193,12 +180,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>10 Feb 2024</td>
                                     <td>Manager</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Active
@@ -239,12 +220,7 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>10 Feb 2024</td>
                                     <td>Project Manager</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
+                            
                                     <td className="text-center">
                                         <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Active
@@ -285,12 +261,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>15 March 2024</td>
                                     <td>Game Developer</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Inactive
@@ -331,12 +301,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>15 March 2024</td>
                                     <td>Head</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Active
@@ -377,12 +341,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>27 April 2024</td>
                                     <td>Management</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Active
@@ -423,12 +381,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>27 April 2024</td>
                                     <td>Waiter</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Inactive
@@ -469,12 +421,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>30 April 2024</td>
                                     <td>Waiter</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Active
@@ -515,12 +461,6 @@ const RoleAccessLayer = () => {
                                     </td>
                                     <td>30 April 2024</td>
                                     <td>Waiter</td>
-                                    <td>
-                                        <p className="max-w-500-px">
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting
-                                        </p>
-                                    </td>
                                     <td className="text-center">
                                         <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
                                             Active

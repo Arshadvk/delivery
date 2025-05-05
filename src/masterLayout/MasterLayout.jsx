@@ -84,11 +84,25 @@ const MasterLayout = ({ children }) => {
   let mobileMenuControl = () => {
     setMobileMenu(!mobileMenu);
   };
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(true);
+  const [isOpreationOpen, setOpreationOpen] = useState(false);
+  const [isManagementOpen, setManagementOpen] = useState(false);
+  const [isSettingsOpen, setSettingsOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
+
+  const toggleOpreationDropdown = () => {
+    setOpreationOpen(!isOpreationOpen);
+  };
+  const toggleManagementDropdown = () => {
+    setManagementOpen(!isManagementOpen);
+  };
+  const toggleSettingsDropdown = () => {
+    setSettingsOpen(!isSettingsOpen);
+  };
+
   return (
     <section className={mobileMenu ? "overlay active" : "overlay "}>
       {/* sidebar */}
@@ -121,13 +135,15 @@ const MasterLayout = ({ children }) => {
 
             <li className="sidebar-menu-group-title" onClick={toggleDropdown} style={{ cursor: "pointer" }}>
               Main Menu
-              <span style={{ float: 'right' }}>{isDropdownOpen ? "▲" : "▼"}</span>
+              <span style={{ float: 'right' }}>
+                {/* {isDropdownOpen ? "▲" : "▼"} */}
+              </span>
             </li>
 
             {isDropdownOpen && (
               <ul className="submenu">
                 <li>
-                  <Link to="/">
+                  <Link to="/dashboard">
                     <i className="ri-dashboard-3-fill menu-icon"></i>
                     <span>Dashboard</span>
                   </Link>
@@ -136,226 +152,76 @@ const MasterLayout = ({ children }) => {
               </ul>
             )}
 
-            <li className='sidebar-menu-group-title'>Main Menu</li>
 
 
-            <li>
-              <Link to='/'>
-
-                <i className="ri-dashboard-3-fill menu-icon"></i>
-                <span>Dashboard</span>
-              </Link>
-            </li>
-
-
-
-
-            <li className='sidebar-menu-group-title'>Operations </li>
+            <li className='sidebar-menu-group-title' onClick={toggleOpreationDropdown} style={{ cursor: "pointer" }}>Operations <span style={{ float: 'right' }}>
+              {/* {isOpreationOpen ? "▲" : "▼"} */}
+            </span></li>
 
             {/* Invoice Dropdown */}
-            <li>
-              <Link to='#'>
-                <i className="ri-archive-2-line menu-icon"></i>
-                <span>Orders</span>
-              </Link>
-
-            </li>
-
-            <li >
-              <Link to='#'>
-                <i className="ri-home-6-fill menu-icon"></i>
-                <span>Warehouse</span>
-              </Link>
-            </li>
-
-            {/* Invoice Dropdown */}
-            <li>
-              <Link to='#'>
-                <Icon icon='hugeicons:invoice-03' className='menu-icon' />
-                <span>Invoice</span>
-              </Link>
-
-            </li>
-
-            {/* Authentication Dropdown */}
-            <li className='dropdown'>
-              <Link to='#'>
-                <Icon icon='simple-line-icons:vector' className='menu-icon' />
-                <span>Authentication</span>
-              </Link>
-              <ul className='sidebar-submenu'>
+            {isOpreationOpen && (
+              <ul className="submenu">
                 <li>
-                  <NavLink
-                    to='/sign-in'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-primary-600 w-auto' />{" "}
-                    Sign In
-                  </NavLink>
+                  <Link to='#'>
+                    <i className="ri-archive-2-line menu-icon"></i>
+                    <span>Orders</span>
+                  </Link>
+
                 </li>
-                <li>
-                  <NavLink
-                    to='/sign-up'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-warning-main w-auto' />{" "}
-                    Sign Up
-                  </NavLink>
+
+                <li >
+                  <Link to='#'>
+                    <i className="ri-home-6-fill menu-icon"></i>
+                    <span>Warehouse</span>
+                  </Link>
                 </li>
+
+                {/* Invoice Dropdown */}
                 <li>
-                  <NavLink
-                    to='/forgot-password'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-info-main w-auto' />{" "}
-                    Forgot Password
-                  </NavLink>
+                  <Link to='#'>
+                    <Icon icon='hugeicons:invoice-03' className='menu-icon' />
+                    <span>Invoice</span>
+                  </Link>
+
                 </li>
               </ul>
-            </li>
+            )}
 
-            <li className='sidebar-menu-group-title'>User Management</li>
 
-            <li className='dropdown'>
-              <Link to='#'>
+            <li className='sidebar-menu-group-title' onClick={toggleManagementDropdown} style={{ cursor: "pointer" }}>User Management</li>
+            {isManagementOpen && (
+              <ul className="submenu">
+            <li>
+              <Link to='/admins-list'>
                 <i className='ri-user-2-fill menu-icon' />
                 <span>Admins</span>
               </Link>
-              <ul className='sidebar-submenu'>
-                <li>
-                  <NavLink
-                    to='/admin-list'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-primary-600 w-auto' />{" "}
-                    Admin List
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to='/admin-user'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-info-main w-auto' />{" "}
-                    Admin User
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to='/view-profile'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-danger-main w-auto' />{" "}
-                    View Profile
-                  </NavLink>
-                </li>
-              </ul>
             </li>
 
-            <li className='dropdown'>
-              <Link to='#'>
+            <li>
+              <Link to='/drivers-list'>
                 <i className="ri-truck-fill menu-icon"></i>
                 <span>Drivers</span>
               </Link>
-              <ul className='sidebar-submenu'>
-                <li>
-                  <NavLink
-                    to='/users-list'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-primary-600 w-auto' />{" "}
-                    Users List
-                  </NavLink>
-                </li>
 
-                <li>
-                  <NavLink
-                    to='/add-user'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-info-main w-auto' />{" "}
-                    Add User
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to='/view-profile'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-danger-main w-auto' />{" "}
-                    View Profile
-                  </NavLink>
-                </li>
-              </ul>
             </li>
 
             {/* Users Dropdown */}
-            <li className='dropdown'>
-              <Link to='#'>
+            <li>
+              <Link to='/users-list'>
                 <Icon
                   icon='flowbite:users-group-outline'
                   className='menu-icon'
                 />
                 <span>Customers</span>
               </Link>
-              <ul className='sidebar-submenu'>
-                <li>
-                  <NavLink
-                    to='/users-list'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-primary-600 w-auto' />{" "}
-                    Users List
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to='/add-user'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-info-main w-auto' />{" "}
-                    Add User
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to='/view-profile'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-danger-main w-auto' />{" "}
-                    View Profile
-                  </NavLink>
-                </li>
-              </ul>
             </li>
+            </ul>
+            )}
 
-
-            <li className='sidebar-menu-group-title'>Settings </li>
-
+            <li className='sidebar-menu-group-title'  onClick={toggleSettingsDropdown} style={{ cursor: "pointer" }}>Settings </li>
+            {isSettingsOpen && (
+                <ul className="submenu">
             <li className='dropdown'>
               <Link to='#'>
                 <i className='ri-user-settings-line' />
@@ -397,6 +263,8 @@ const MasterLayout = ({ children }) => {
                 <span>App Settings</span>
               </Link>
             </li>
+            </ul>
+            )}
           </ul>
         </div>
       </aside>
