@@ -1,8 +1,26 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import React from 'react';
+import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router-dom';
 
 const UsersListLayer = () => {
+
+    const handleDelete = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This action cannot be undone!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Perform delete logic here
+                Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
+            }
+        });
+    };
 
     const navigate = useNavigate();
     const User = [{ id: 1, name: 'Kathryn Murphy', email: 'osgoodwy@gmail.com', number: "+1 234 567 8900", status: "active", image: "assets/images/svg/avatar/avatar.svg" },
@@ -125,7 +143,7 @@ const UsersListLayer = () => {
                                                 <Icon icon="lucide:edit" className="menu-icon" />
                                             </button>
                                             <button
-                                         
+                                                onClick={handleDelete}
                                                 type="button"
                                                 className="remove-item-btn bg-hover-danger-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                             >

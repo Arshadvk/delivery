@@ -84,7 +84,7 @@ const MasterLayout = ({ children }) => {
   let mobileMenuControl = () => {
     setMobileMenu(!mobileMenu);
   };
-  const [isDropdownOpen, setDropdownOpen] = useState(true);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isOpreationOpen, setOpreationOpen] = useState(false);
   const [isManagementOpen, setManagementOpen] = useState(false);
   const [isSettingsOpen, setSettingsOpen] = useState(false);
@@ -222,35 +222,11 @@ const MasterLayout = ({ children }) => {
             <li className='sidebar-menu-group-title'  onClick={toggleSettingsDropdown} style={{ cursor: "pointer" }}>Settings </li>
             {isSettingsOpen && (
                 <ul className="submenu">
-            <li className='dropdown'>
-              <Link to='#'>
+            <li>
+              <Link to='/role-access'>
                 <i className='ri-user-settings-line' />
                 <span>Role &amp; Access</span>
               </Link>
-              <ul className='sidebar-submenu'>
-                <li>
-                  <NavLink
-                    to='/role-access'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-primary-600 w-auto' />{" "}
-                    Role &amp; Access
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to='/assign-role'
-                    className={(navData) =>
-                      navData.isActive ? "active-page" : ""
-                    }
-                  >
-                    <i className='ri-circle-fill circle-icon text-warning-main w-auto' />{" "}
-                    Assign Role
-                  </NavLink>
-                </li>
-              </ul>
             </li>
 
             {/* Settings Dropdown */}
