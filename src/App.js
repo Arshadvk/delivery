@@ -119,6 +119,18 @@ function App() {
         <Route exact path='/sign-up' element={<SignUpPage />} />
 
 
+          {/* admin management */}
+        <Route exact path='/admins-list' element={<UsersListPage />} />
+        <Route exact path='/users-list' element={<UsersListPage />} />
+        <Route exact path='/drivers-list' element={<UsersListPage />} />
+
+        
+        <Route exact path='/view-profile' element={<ViewProfilePage />} />
+
+
+
+
+
         <Route exact path="/settings" element={<ApplicationSettings />} />
 
         {/* SL */}
@@ -220,7 +232,6 @@ function App() {
         <Route exact path='/tooltip' element={<TooltipPage />} />
         <Route exact path='/typography' element={<TypographyPage />} />
         <Route exact path='/users-grid' element={<UsersGridPage />} />
-        <Route exact path='/users-list' element={<UsersListPage />} />
         <Route exact path='/view-details' element={<ViewDetailsPage />} />
         <Route exact path='/video-generator' element={<VideoGeneratorPage />} />
         <Route exact path='/videos' element={<VideosPage />} />

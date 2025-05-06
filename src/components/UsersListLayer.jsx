@@ -1,8 +1,10 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const UsersListLayer = () => {
+
+    const navigate = useNavigate();
     const User = [{ id: 1, name: 'Kathryn Murphy', email: 'osgoodwy@gmail.com', number: "+1 234 567 8900", status: "active", image: "assets/images/svg/avatar/avatar.svg" },
     { id: 2, name: 'Annette Black', email: 'redaniel@gmail.com', number: "+1 234 567 8900", status: "Inactive", image: "assets/images/svg/avatar/avatar-1.svg" },
     { id: 3, name: 'Ronald Richards', email: 'seannand@gmail.com', number: "+1 234 567 8900", status: "active", image: "assets/images/svg/avatar/avatar-2.svg" }
@@ -109,18 +111,21 @@ const UsersListLayer = () => {
                                     <td className="text-center">
                                         <div className="d-flex align-items-center gap-10 justify-content-center">
                                             <button
+                                             onClick={() => navigate('/view-profile')}
                                                 type="button"
                                                 className="bg-hover-info-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                             >
                                                 <Icon icon="majesticons:eye-line" className="icon text-xl" />
                                             </button>
                                             <button
+                                             onClick={() => navigate('/view-profile')}
                                                 type="button"
                                                 className="bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                             >
                                                 <Icon icon="lucide:edit" className="menu-icon" />
                                             </button>
                                             <button
+                                         
                                                 type="button"
                                                 className="remove-item-btn bg-hover-danger-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                             >
