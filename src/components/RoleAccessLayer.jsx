@@ -1,8 +1,32 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const RoleAccessLayer = () => {
+    const navigate = useNavigate();
+
+      const handleDelete = () => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'This action cannot be undone!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform delete logic here
+                    Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
+                }
+            });
+        };
+
+    const roles = [{ no: 1, description: 'Dashboard Admin', role: "Admin", status: "active" },
+    { no: 2, description: 'Company Driver', role: "Driver", status: "inactive" },
+    { no: 3, description: 'User Dashboard', role: "User", status: "active" }
+    ]
     return (
         <>
             <div className="card h-100 p-0 radius-12">
@@ -45,6 +69,13 @@ const RoleAccessLayer = () => {
                     </div>
                     <button
                         type="button"
+                        className="btn btn-success text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
+                        onClick={() => navigate('/assign-role')}
+                    >
+                        Assign Role
+                    </button>
+                     <button
+                        type="button"
                         className="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
@@ -61,20 +92,8 @@ const RoleAccessLayer = () => {
                         <table className="table bordered-table sm-table mb-0">
                             <thead>
                                 <tr>
-                                    <th scope="col">
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border input-form-dark"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                    id="selectAll"
-                                                />
-                                            </div>
-                                            S.L
-                                        </div>
-                                    </th>
-                                    <th scope="col">Create Date</th>
+                                    <th scope="col">No</th>
+                                    <th>Description</th>
                                     <th scope="col">Role </th>
                                     <th scope="col" className="text-center">
                                         Status
@@ -85,407 +104,40 @@ const RoleAccessLayer = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
+                                {roles.map((role, index) => (
+                                    <tr key={role.id}>
+                                        <td>{role.no}</td>
+                                        <td>{role.description}</td>
+                                        <td>{role.role}</td>
+                                        <td className="text-center">
+                                            <span className={role.status === 'active' ? "bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm" : "bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm"}>
+                                                {role.status}
+                                            </span>
+                                        </td>
+                                        <td className="text-center">
+                                            <div className="d-flex align-items-center gap-10 justify-content-center">
+                                                <button
+                                                    onClick={() => navigate('/assign-role')}
+
+                                                    type="button"
+                                                    className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                >
+                                                    <Icon icon="lucide:edit" className="menu-icon" />
+                                                </button>
+                                                <button
+                                                onClick={handleDelete}
+                                                    type="button"
+                                                    className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                >
+                                                    <Icon
+                                                        icon="fluent:delete-24-regular"
+                                                        className="menu-icon"
+                                                    />
+                                                </button>
                                             </div>
-                                            01
-                                        </div>
-                                    </td>
-                                    <td>25 Jan 2024</td>
-                                    <td>Test</td>
-                                    <td className="text-center">
-                                        <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            02
-                                        </div>
-                                    </td>
-                                    <td>25 Jan 2024</td>
-                                    <td>Waiter</td>
-                                    <td className="text-center">
-                                        <span className="bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Inactive
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            03
-                                        </div>
-                                    </td>
-                                    <td>10 Feb 2024</td>
-                                    <td>Manager</td>
-                                    <td className="text-center">
-                                        <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            04
-                                        </div>
-                                    </td>
-                                    <td>10 Feb 2024</td>
-                                    <td>Project Manager</td>
-                            
-                                    <td className="text-center">
-                                        <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            05
-                                        </div>
-                                    </td>
-                                    <td>15 March 2024</td>
-                                    <td>Game Developer</td>
-                                    <td className="text-center">
-                                        <span className="bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Inactive
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            06
-                                        </div>
-                                    </td>
-                                    <td>15 March 2024</td>
-                                    <td>Head</td>
-                                    <td className="text-center">
-                                        <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            07
-                                        </div>
-                                    </td>
-                                    <td>27 April 2024</td>
-                                    <td>Management</td>
-                                    <td className="text-center">
-                                        <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            08
-                                        </div>
-                                    </td>
-                                    <td>27 April 2024</td>
-                                    <td>Waiter</td>
-                                    <td className="text-center">
-                                        <span className="bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Inactive
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            09
-                                        </div>
-                                    </td>
-                                    <td>30 April 2024</td>
-                                    <td>Waiter</td>
-                                    <td className="text-center">
-                                        <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="d-flex align-items-center gap-10">
-                                            <div className="form-check style-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input radius-4 border border-neutral-400"
-                                                    type="checkbox"
-                                                    name="checkbox"
-                                                />
-                                            </div>
-                                            10
-                                        </div>
-                                    </td>
-                                    <td>30 April 2024</td>
-                                    <td>Waiter</td>
-                                    <td className="text-center">
-                                        <span className="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                                            <button
-                                                type="button"
-                                                className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="lucide:edit" className="menu-icon" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon
-                                                    icon="fluent:delete-24-regular"
-                                                    className="menu-icon"
-                                                />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

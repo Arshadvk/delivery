@@ -4,17 +4,17 @@ import Breadcrumb from "../components/Breadcrumb";
 import AddUserLayer from "../components/AddUserLayer";
 
 
-const AddUserPage = () => {
+const AddUserPage = ({title , user}) => {
   return (
     <>
       {/* MasterLayout */}
       <MasterLayout>
 
         {/* Breadcrumb */}
-        <Breadcrumb title="Add User" />
+        <Breadcrumb title={title} />
 
         {/* AddUserLayer */}
-        <AddUserLayer />
+        <AddUserLayer user={user}/>
 
 
       </MasterLayout>

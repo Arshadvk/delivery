@@ -103,7 +103,7 @@ function App() {
     <BrowserRouter>
       <RouteScrollToTop />
       <Routes>
-        {/* arshuu */}
+      
         {/* <Route exact path='/' element={<HomePageOne />} /> */}
         {/* <Route exact path='/index-2' element={<HomePageTwo />} />
         <Route exact path='/index-3' element={<HomePageThree />} />
@@ -115,18 +115,25 @@ function App() {
         <Route exact path='/index-9' element={<HomePageNine />} />
         <Route exact path='/index-10' element={<HomePageTen />} />
         <Route exact path='/index-11' element={<HomePageEleven />} /> */}
+
+
         <Route exact path='/' element={<SignInPage />} />
+        <Route exact path='/sign-in' element={<SignInPage />} />
         <Route exact path='/sign-up' element={<SignUpPage />} />
+        <Route exact path='/forgot-password' element={<ForgotPasswordPage />} />
 
 
           {/* admin management */}
-        <Route exact path='/admins-list' element={<UsersListPage />} />
-        <Route exact path='/users-list' element={<UsersListPage />} />
-        <Route exact path='/drivers-list' element={<UsersListPage />} />
+        <Route exact path='/users-list' element={<UsersListPage  user="user" title="Users List" />} />
+        <Route exact path='/admins-list' element={<UsersListPage user="admin" title="Admins List" />} />
+        <Route exact path='/drivers-list' element={<UsersListPage  user="driver" title="Drivers List"  />} />
 
         
         <Route exact path='/view-profile' element={<ViewProfilePage />} />
 
+        <Route exact path='/add-user' element={<AddUserPage  user="user" title="Add Users" />} />
+        <Route exact path='/add-admin' element={<AddUserPage user="admin" title="Add Admins" />} />
+        <Route exact path='/add-driver' element={<AddUserPage user="driver" title="Add Drivers"/>} />
 
 
 
@@ -134,7 +141,6 @@ function App() {
         <Route exact path="/settings" element={<ApplicationSettings />} />
 
         {/* SL */}
-        <Route exact path='/add-user' element={<AddUserPage />} />
         <Route exact path='/alert' element={<AlertPage />} />
         <Route exact path='/assign-role' element={<AssignRolePage />} />
         <Route exact path='/avatar' element={<AvatarPage />} />
@@ -153,9 +159,9 @@ function App() {
           path='/code-generator-new'
           element={<CodeGeneratorNewPage />}
         />
-        {/* arshad */}
-        {/* arshad */}
-        {/* arshad */}
+       
+
+
         <Route exact path='/colors' element={<ColorsPage />} />
         <Route exact path='/column-chart' element={<ColumnChartPage />} />
         <Route exact path='/company' element={<CompanyPage />} />
@@ -163,7 +169,6 @@ function App() {
         <Route exact path='/dropdown' element={<DropdownPage />} />
         <Route exact path='/email' element={<EmailPage />} />
         <Route exact path='/faq' element={<FaqPage />} />
-        <Route exact path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route exact path='/form-layout' element={<FormLayoutPage />} />
         <Route exact path='/form-validation' element={<FormValidationPage />} />
         <Route exact path='/form' element={<FormPage />} />

@@ -3,7 +3,7 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router-dom';
 
-const UsersListLayer = () => {
+const UsersListLayer = ({user}) => {
 
     const handleDelete = () => {
         Swal.fire({
@@ -65,7 +65,7 @@ const UsersListLayer = () => {
                     </select>
                 </div>
                 <Link
-                    to="/add-user"
+                    to={`/add-${user}`}
                     className="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
                 >
                     <Icon

@@ -4,7 +4,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import UsersListLayer from "../components/UsersListLayer";
 
 
-const UsersListPage = () => {
+const UsersListPage = ({ title , user}) => {
   return (
     <>
 
@@ -12,10 +12,10 @@ const UsersListPage = () => {
       <MasterLayout>
 
         {/* Breadcrumb */}
-        <Breadcrumb title="Users Grid" />
+        <Breadcrumb title={title}/>
 
         {/* UsersListLayer */}
-        <UsersListLayer />
+        <UsersListLayer user={user} />
 
       </MasterLayout>
 
