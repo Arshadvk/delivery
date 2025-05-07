@@ -104,6 +104,7 @@ function App() {
       <RouteScrollToTop />
       <Routes>
       
+        {/* auth */}
         <Route exact path='/' element={<SignInPage />} />
         <Route exact path='/sign-in' element={<SignInPage />} />
         <Route exact path='/sign-up' element={<SignUpPage />} />
@@ -118,7 +119,7 @@ function App() {
         
         <Route exact path='/view-profile' element={<ViewProfilePage />} />
 
-
+        {/* crud user */}
         <Route exact path='/add-user' element={<AddUserPage  user="user" title="Add Users" />} />
         <Route exact path='/add-admin' element={<AddUserPage user="admin" title="Add Admins" />} />
         <Route exact path='/add-driver' element={<AddUserPage user="driver" title="Add Drivers"/>} />
