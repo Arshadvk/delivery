@@ -104,6 +104,33 @@ function App() {
       <RouteScrollToTop />
       <Routes>
       
+        <Route exact path='/' element={<SignInPage />} />
+        <Route exact path='/sign-in' element={<SignInPage />} />
+        <Route exact path='/sign-up' element={<SignUpPage />} />
+        <Route exact path='/forgot-password' element={<ForgotPasswordPage />} />
+
+
+        {/* admin management */}
+        <Route exact path='/users-list' element={<UsersListPage  user="user" title="Users List" />} />
+        <Route exact path='/admins-list' element={<UsersListPage user="admin" title="Admins List" />} />
+        <Route exact path='/drivers-list' element={<UsersListPage  user="driver" title="Drivers List"  />} />
+
+        
+        <Route exact path='/view-profile' element={<ViewProfilePage />} />
+
+
+        <Route exact path='/add-user' element={<AddUserPage  user="user" title="Add Users" />} />
+        <Route exact path='/add-admin' element={<AddUserPage user="admin" title="Add Admins" />} />
+        <Route exact path='/add-driver' element={<AddUserPage user="driver" title="Add Drivers"/>} />
+       
+
+        <Route exact path='/role-access' element={<RoleAccessPage />} />
+        <Route exact path='/assign-role' element={<AssignRolePage />} />
+        <Route exact path="/settings" element={<ApplicationSettings />} />
+
+
+
+
         {/* <Route exact path='/' element={<HomePageOne />} /> */}
         {/* <Route exact path='/index-2' element={<HomePageTwo />} />
         <Route exact path='/index-3' element={<HomePageThree />} />
@@ -117,32 +144,8 @@ function App() {
         <Route exact path='/index-11' element={<HomePageEleven />} /> */}
 
 
-        <Route exact path='/' element={<SignInPage />} />
-        <Route exact path='/sign-in' element={<SignInPage />} />
-        <Route exact path='/sign-up' element={<SignUpPage />} />
-        <Route exact path='/forgot-password' element={<ForgotPasswordPage />} />
 
-
-          {/* admin management */}
-        <Route exact path='/users-list' element={<UsersListPage  user="user" title="Users List" />} />
-        <Route exact path='/admins-list' element={<UsersListPage user="admin" title="Admins List" />} />
-        <Route exact path='/drivers-list' element={<UsersListPage  user="driver" title="Drivers List"  />} />
-
-        
-        <Route exact path='/view-profile' element={<ViewProfilePage />} />
-
-        <Route exact path='/add-user' element={<AddUserPage  user="user" title="Add Users" />} />
-        <Route exact path='/add-admin' element={<AddUserPage user="admin" title="Add Admins" />} />
-        <Route exact path='/add-driver' element={<AddUserPage user="driver" title="Add Drivers"/>} />
-
-
-
-
-        <Route exact path="/settings" element={<ApplicationSettings />} />
-
-        {/* SL */}
         <Route exact path='/alert' element={<AlertPage />} />
-        <Route exact path='/assign-role' element={<AssignRolePage />} />
         <Route exact path='/avatar' element={<AvatarPage />} />
         <Route exact path='/badges' element={<BadgesPage />} />
         <Route exact path='/button' element={<ButtonPage />} />
@@ -154,13 +157,7 @@ function App() {
         <Route exact path='/chat-message' element={<ChatMessagePage />} />
         <Route exact path='/chat-profile' element={<ChatProfilePage />} />
         <Route exact path='/code-generator' element={<CodeGeneratorPage />} />
-        <Route
-          exact
-          path='/code-generator-new'
-          element={<CodeGeneratorNewPage />}
-        />
-       
-
+        <Route exact path='/code-generator-new' element={<CodeGeneratorNewPage />} />
 
         <Route exact path='/colors' element={<ColorsPage />} />
         <Route exact path='/column-chart' element={<ColumnChartPage />} />
@@ -198,17 +195,9 @@ function App() {
         <Route exact path='/language' element={<LanguagePage />} />
         <Route exact path='/line-chart' element={<LineChartPage />} />
         <Route exact path='/list' element={<ListPage />} />
-        <Route
-          exact
-          path='/marketplace-details'
-          element={<MarketplaceDetailsPage />}
-        />
+        <Route exact path='/marketplace-details' element={<MarketplaceDetailsPage />} />
         <Route exact path='/marketplace' element={<MarketplacePage />} />
-        <Route
-          exact
-          path='/notification-alert'
-          element={<NotificationAlertPage />}
-        />
+        <Route exact path='/notification-alert' element={<NotificationAlertPage />} />
         <Route exact path='/notification' element={<NotificationPage />} />
         <Route exact path='/pagination' element={<PaginationPage />} />
         <Route exact path='/payment-gateway' element={<PaymentGatewayPage />} />
@@ -217,8 +206,6 @@ function App() {
         <Route exact path='/pricing' element={<PricingPage />} />
         <Route exact path='/progress' element={<ProgressPage />} />
         <Route exact path='/radio' element={<RadioPage />} />
-        <Route exact path='/role-access' element={<RoleAccessPage />} />
-
         <Route exact path='/star-rating' element={<StarRatingPage />} />
         <Route exact path='/starred' element={<StarredPage />} />
         <Route exact path='/switch' element={<SwitchPage />} />
@@ -227,11 +214,7 @@ function App() {
         <Route exact path='/tabs' element={<TabsPage />} />
         <Route exact path='/tags' element={<TagsPage />} />
         <Route exact path='/terms-condition' element={<TermsConditionPage />} />
-        <Route
-          exact
-          path='/text-generator-new'
-          element={<TextGeneratorNewPage />}
-        />
+        <Route exact path='/text-generator-new' element={<TextGeneratorNewPage />} />
         <Route exact path='/text-generator' element={<TextGeneratorPage />} />
         <Route exact path='/theme' element={<ThemePage />} />
         <Route exact path='/tooltip' element={<TooltipPage />} />
