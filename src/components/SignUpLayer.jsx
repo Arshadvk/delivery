@@ -22,27 +22,40 @@ const SignUpLayer = () => {
             </p>
           </div>
           <form action='#'>
-            <div className='icon-field mb-16'>
-              <span className='icon top-50 translate-middle-y'>
-                <Icon icon='f7:person' />
-              </span>
-              <input
-                type='text'
-                className='form-control h-56-px bg-neutral-50 radius-12'
-                placeholder='Username'
-              />
+
+            <div className='mb-16'>
+            <label className='m-1' htmlFor="">Company Name</label>
+              <input type='text' className='form-control h-56-px bg-neutral-50 radius-12' placeholder='Company Name' />
             </div>
-            <div className='icon-field mb-16'>
-              <span className='icon top-50 translate-middle-y'>
-                <Icon icon='mage:email' />
-              </span>
-              <input
-                type='email'
-                className='form-control h-56-px bg-neutral-50 radius-12'
-                placeholder='Email'
-              />
+
+            <div className='mb-16'>
+            <label className='m-1' htmlFor="">Contact Person Name</label>
+              <input type='text' className='form-control h-56-px bg-neutral-50 radius-12' placeholder='Contact Person Name' />
             </div>
+
+            <div className='mb-16'>
+            <label className='m-1' htmlFor="">Contact Person Number</label>
+              <input type='text' className='form-control h-56-px bg-neutral-50 radius-12' placeholder='Contact Person Number' />
+            </div>
+
+            <div className='mb-16'>
+            <label className='m-1' htmlFor="">Company License</label>
+              <input type='file' className='form-control h-56-px bg-neutral-50 radius-12' placeholder='Contact Person Number' />
+            </div>
+
+            <div className='mb-16'>
+            <label className='m-1' htmlFor="">Company License</label>
+              <input type='file' className='form-control h-56-px bg-neutral-50 radius-12' />
+            </div>
+
+            <div className='mb-16'>
+            <label className='m-1' htmlFor="">Contact Person Email</label>
+              <input  type='email' className='form-control h-56-px bg-neutral-50 radius-12' placeholder='Contact Person Email' />
+            </div>
+
             <div className='mb-20'>
+            <label className='m-1' htmlFor="">Password</label>
+
               <div className='position-relative '>
                 <div className='icon-field'>
                   <span className='icon top-50 translate-middle-y'>

@@ -73,7 +73,7 @@ const SignInLayer = () => {
               Sign In
             </Link>
            
-            <div className='mt-32 center-border-horizontal text-center'>
+            {/* <div className='mt-32 center-border-horizontal text-center'>
               <span className='bg-base z-1 px-4'>Or sign in with</span>
             </div>
             <div className='mt-32 d-flex align-items-center gap-3'>
@@ -97,7 +97,7 @@ const SignInLayer = () => {
                 />
                 Google
               </button>
-            </div>
+            </div> */}
             <div className='mt-32 text-center text-sm'>
               <p className='mb-0'>
                 Don’t have an account?{" "}
