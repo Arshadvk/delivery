@@ -1,38 +1,39 @@
-import { Icon } from '@iconify/react/dist/iconify.js';
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { Icon } from "@iconify/react/dist/iconify.js";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const RoleAccessLayer = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-      const handleDelete = () => {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'This action cannot be undone!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Perform delete logic here
-                    Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
-                }
-            });
-        };
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Perform delete logic here
+        Swal.fire("Deleted!", "Your item has been deleted.", "success");
+      }
+    });
+  };
 
-    const roles = [{ no: 1, description: 'Dashboard Admin', role: "Admin", status: "active" },
-    { no: 2, description: 'Company Driver', role: "Driver", status: "inactive" },
-    { no: 3, description: 'User Dashboard', role: "User", status: "active" }
-    ]
-    return (
-        <>
-            <div className="card h-100 p-0 radius-12">
-                <div className="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
-                    <div className="d-flex align-items-center flex-wrap gap-3">
-                        <span className="text-md fw-medium text-secondary-light mb-0">
+  const roles = [
+    { no: 1, description: "Dashboard Admin", role: "Admin" },
+    { no: 2, description: "Company Driver", role: "Driver" },
+    { no: 3, description: "User Dashboard", role: "User" },
+  ];
+  return (
+    <>
+      <div className="card h-100 p-0 radius-12">
+        <div className="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
+          <div className="d-flex align-items-center flex-wrap gap-3">
+            {/* <span className="text-md fw-medium text-secondary-light mb-0">
                             Show
                         </span>
                         <select className="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px" defaultValue="Select Number">
@@ -49,99 +50,78 @@ const RoleAccessLayer = () => {
                             <option value="8">8</option>
                             <option value="9">9</option>
                             <option value="10">10</option>
-                        </select>
-                        <form className="navbar-search">
-                            <input
-                                type="text"
-                                className="bg-base h-40-px w-auto"
-                                name="search"
-                                placeholder="Search"
-                            />
-                            <Icon icon="ion:search-outline" className="icon" />
-                        </form>
-                        <select className="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px" defaultValue="Select Status">
-                            <option value="Select Status" disabled>
-                                Select Status
-                            </option>
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                        </select>
-                    </div>
-                    <button
-                        type="button"
-                        className="btn btn-success text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
-                        onClick={() => navigate('/assign-role')}
-                    >
-                        Assign Role
-                    </button>
-                     <button
-                        type="button"
-                        className="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                    >
-                        <Icon
-                            icon="ic:baseline-plus"
-                            className="icon text-xl line-height-1"
-                        />
-                        Add New Role
-                    </button>
-                </div>
-                <div className="card-body p-24">
-                    <div className="table-responsive scroll-sm">
-                        <table className="table bordered-table sm-table mb-0">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th>Description</th>
-                                    <th scope="col">Role </th>
-                                    <th scope="col" className="text-center">
-                                        Status
-                                    </th>
-                                    <th scope="col" className="text-center">
-                                        Action
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {roles.map((role, index) => (
-                                    <tr key={role.id}>
-                                        <td>{role.no}</td>
-                                        <td>{role.description}</td>
-                                        <td>{role.role}</td>
-                                        <td className="text-center">
-                                            <span className={role.status === 'active' ? "bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm" : "bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm"}>
-                                                {role.status}
-                                            </span>
-                                        </td>
-                                        <td className="text-center">
-                                            <div className="d-flex align-items-center gap-10 justify-content-center">
-                                                <button
-                                                    onClick={() => navigate('/assign-role')}
+                        </select> */}
+            <form className="navbar-search">
+              <input
+                type="text"
+                className="bg-base h-40-px w-auto"
+                name="search"
+                placeholder="Search"
+              />
+              <Icon icon="ion:search-outline" className="icon" />
+            </form>
+          </div>
 
-                                                    type="button"
-                                                    className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                                >
-                                                    <Icon icon="lucide:edit" className="menu-icon" />
-                                                </button>
-                                                <button
-                                                onClick={handleDelete}
-                                                    type="button"
-                                                    className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                                >
-                                                    <Icon
-                                                        icon="fluent:delete-24-regular"
-                                                        className="menu-icon"
-                                                    />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-24">
+          <button
+            type="button"
+            className="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <Icon
+              icon="ic:baseline-plus"
+              className="icon text-xl line-height-1"
+            />
+            Add New Role
+          </button>
+        </div>
+        <div className="card-body p-24">
+          <div className="table-responsive scroll-sm">
+            <table className="table bordered-table sm-table mb-0">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th>Description</th>
+                  <th scope="col">Role </th>
+                  <th scope="col" className="text-center">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {roles.map((role, index) => (
+                  <tr key={role.id}>
+                    <td>{role.no}</td>
+                    <td>{role.description}</td>
+                    <td>{role.role}</td>
+                    <td className="text-center">
+                      <div className="d-flex align-items-center gap-10 justify-content-center">
+                        <button
+                          data-bs-toggle="modal"
+                          data-bs-target="#editModal"
+                          type="button"
+                          className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                        >
+                          <Icon icon="lucide:edit" className="menu-icon" />
+                        </button>
+                        <button
+                          onClick={handleDelete}
+                          type="button"
+                          className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                        >
+                          <Icon
+                            icon="fluent:delete-24-regular"
+                            className="menu-icon"
+                          />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-24">
                         <span>Showing 1 to 10 of 12 entries</span>
                         <ul className="pagination d-flex flex-wrap align-items-center gap-2 justify-content-center">
                             <li className="page-item">
@@ -202,120 +182,270 @@ const RoleAccessLayer = () => {
                                 </Link>
                             </li>
                         </ul>
-                    </div>
-                </div>
+                    </div> */}
+        </div>
+      </div>
+      {/* Modal Start */}
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex={-1}
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg modal-dialog modal-dialog-centered">
+          <div className="modal-content radius-16 bg-base">
+            <div className="modal-header py-16 px-24 border border-top-0 border-start-0 border-end-0">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">
+                Add New Role
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              />
             </div>
-            {/* Modal Start */}
-            <div
-                className="modal fade"
-                id="exampleModal"
-                tabIndex={-1}
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-            >
-                <div className="modal-dialog modal-lg modal-dialog modal-dialog-centered">
-                    <div className="modal-content radius-16 bg-base">
-                        <div className="modal-header py-16 px-24 border border-top-0 border-start-0 border-end-0">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">
-                                Add New Role
-                            </h1>
-                            <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            />
-                        </div>
-                        <div className="modal-body p-24">
-                            <form action="#">
-                                <div className="row">
-                                    <div className="col-12 mb-20">
-                                        <label className="form-label fw-semibold text-primary-light text-sm mb-8">
-                                            Role Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-control radius-8"
-                                            placeholder="Enter Role  Name"
-                                        />
-                                    </div>
-                                    <div className="col-12 mb-20">
-                                        <label
-                                            htmlFor="desc"
-                                            className="form-label fw-semibold text-primary-light text-sm mb-8"
-                                        >
-                                            Description
-                                        </label>
-                                        <textarea
-                                            className="form-control"
-                                            id="desc"
-                                            rows={4}
-                                            cols={50}
-                                            placeholder="Write some text"
-                                            defaultValue={""}
-                                        />
-                                    </div>
-                                    <div className="col-12 mb-20">
-                                        <label className="form-label fw-semibold text-primary-light text-sm mb-8">
-                                            Status{" "}
-                                        </label>
-                                        <div className="d-flex align-items-center flex-wrap gap-28">
-                                            <div className="form-check checked-success d-flex align-items-center gap-2">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="radio"
-                                                    name="label"
-                                                    id="Personal"
-                                                />
-                                                <label
-                                                    className="form-check-label line-height-1 fw-medium text-secondary-light text-sm d-flex align-items-center gap-1"
-                                                    htmlFor="Personal"
-                                                >
-                                                    <span className="w-8-px h-8-px bg-success-600 rounded-circle" />
-                                                    Active
-                                                </label>
-                                            </div>
-                                            <div className="form-check checked-danger d-flex align-items-center gap-2">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="radio"
-                                                    name="label"
-                                                    id="Holiday"
-                                                />
-                                                <label
-                                                    className="form-check-label line-height-1 fw-medium text-secondary-light text-sm d-flex align-items-center gap-1"
-                                                    htmlFor="Holiday"
-                                                >
-                                                    <span className="w-8-px h-8-px bg-danger-600 rounded-circle" />
-                                                    Inactive
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-center gap-3 mt-24">
-                                        <button
-                                            type="reset"
-                                            className="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-40 py-11 radius-8"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="btn btn-primary border border-primary-600 text-md px-48 py-12 radius-8"
-                                        >
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Modal End */}
-        </>
+            <div className="modal-body p-24">
+              <form action="#">
+                <div className="row">
+                  <div className="col-12 mb-20">
+                    <label className="form-label fw-semibold text-primary-light text-sm mb-8">
+                      Role Name
+                    </label>
+                    <input
+                      type="text"
+                      name="roleName"
+                      className="form-control radius-8"
+                      placeholder="Enter Role  Name"
+                    />
+                  </div>
+                  <div className="col-12 mb-20">
+                    <label
+                      htmlFor="desc"
+                      className="form-label fw-semibold text-primary-light text-sm mb-8"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      className="form-control"
+                      id="desc"
+                      name="description"
+                      rows={4}
+                      cols={50}
+                      placeholder="Write about role"
+                      defaultValue={""}
+                    />
+                  </div>
 
-    );
+                  <div className="col-12 mb-20">
+                    <label className="form-label fw-semibold text-primary-light text-sm mb-8">
+                      Permissions
+                    </label>
+                    <div className="d-flex flex-wrap gap-2">
+                      <div className="form-check me-3">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="permissions"
+                          value="view_users"
+                          id="permViewUsers"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="permViewUsers"
+                        >
+                          View Users
+                        </label>
+                      </div>
+                      <div className="form-check me-3">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="permissions"
+                          value="edit_users"
+                          id="permEditUsers"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="permEditUsers"
+                        >
+                          Edit Users
+                        </label>
+                      </div>
+                      <div className="form-check me-3">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="permissions"
+                          value="delete_users"
+                          id="permDeleteUsers"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="permDeleteUsers"
+                        >
+                          Delete Users
+                        </label>
+                      </div>
+
+                      {/* Add more as needed */}
+                    </div>
+                  </div>
+
+                  <div className="d-flex align-items-center justify-content-center gap-3 mt-24">
+                    <button
+                      type="reset"
+                      className="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-40 py-11 radius-8"
+                    >
+                      Rest
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn btn-primary border border-primary-600 text-md px-48 py-12 radius-8"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Modal End */}
+
+      {/* Edit Modal Start */}
+      <div
+        className="modal fade"
+        id="editModal"
+        tabIndex={-1}
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg modal-dialog modal-dialog-centered">
+          <div className="modal-content radius-16 bg-base">
+            <div className="modal-header py-16 px-24 border border-top-0 border-start-0 border-end-0">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">
+                Edit Role
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              />
+            </div>
+            <div className="modal-body p-24">
+              <form action="#">
+                <div className="row">
+                  <div className="col-12 mb-20">
+                    <label className="form-label fw-semibold text-primary-light text-sm mb-8">
+                      Role Name
+                    </label>
+                    <input
+                      type="text"
+                      name="roleName"
+                      className="form-control radius-8"
+                      placeholder="Enter Role  Name"
+                    />
+                  </div>
+                  <div className="col-12 mb-20">
+                    <label
+                      htmlFor="desc"
+                      className="form-label fw-semibold text-primary-light text-sm mb-8"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      className="form-control"
+                      id="desc"
+                      name="description"
+                      rows={4}
+                      cols={50}
+                      placeholder="Write about role"
+                      defaultValue={""}
+                    />
+                  </div>
+
+                  <div className="col-12 mb-20">
+                    <label className="form-label fw-semibold text-primary-light text-sm mb-8">
+                      Permissions
+                    </label>
+                    <div className="d-flex flex-wrap gap-2">
+                      <div className="form-check me-3">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="permissions"
+                          value="view_users"
+                          id="permViewUsers"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="permViewUsers"
+                        >
+                          View Users
+                        </label>
+                      </div>
+                      <div className="form-check me-3">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="permissions"
+                          value="edit_users"
+                          id="permEditUsers"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="permEditUsers"
+                        >
+                          Edit Users
+                        </label>
+                      </div>
+                      <div className="form-check me-3">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="permissions"
+                          value="delete_users"
+                          id="permDeleteUsers"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="permDeleteUsers"
+                        >
+                          Delete Users
+                        </label>
+                      </div>
+
+                      {/* Add more as needed */}
+                    </div>
+                  </div>
+
+                  <div className="d-flex align-items-center justify-content-center gap-3 mt-24">
+                    <button
+                      type="reset"
+                      className="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-40 py-11 radius-8"
+                    >
+                      Rest
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn btn-primary border border-primary-600 text-md px-48 py-12 radius-8"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Modal End */}
+    </>
+  );
 };
 
 export default RoleAccessLayer;

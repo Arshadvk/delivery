@@ -126,10 +126,11 @@ function App() {
        
 
         <Route exact path='/role-access' element={<RoleAccessPage />} />
-        <Route exact path='/assign-role' element={<AssignRolePage />} />
         <Route exact path="/settings" element={<ApplicationSettings />} />
+        <Route exact path='/dashboard' element={<BlankPagePage />} />
 
 
+        {/* <Route exact path='/assign-role' element={<AssignRolePage />} /> */}
 
 
         {/* <Route exact path='/' element={<HomePageOne />} /> */}
@@ -146,7 +147,7 @@ function App() {
 
 
 
-        <Route exact path='/alert' element={<AlertPage />} />
+        {/* <Route exact path='/alert' element={<AlertPage />} />
         <Route exact path='/avatar' element={<AvatarPage />} />
         <Route exact path='/badges' element={<BadgesPage />} />
         <Route exact path='/button' element={<ButtonPage />} />
@@ -158,9 +159,9 @@ function App() {
         <Route exact path='/chat-message' element={<ChatMessagePage />} />
         <Route exact path='/chat-profile' element={<ChatProfilePage />} />
         <Route exact path='/code-generator' element={<CodeGeneratorPage />} />
-        <Route exact path='/code-generator-new' element={<CodeGeneratorNewPage />} />
+        <Route exact path='/code-generator-new' element={<CodeGeneratorNewPage />} /> */}
 
-        <Route exact path='/colors' element={<ColorsPage />} />
+        {/* <Route exact path='/colors' element={<ColorsPage />} />
         <Route exact path='/column-chart' element={<ColumnChartPage />} />
         <Route exact path='/company' element={<CompanyPage />} />
         <Route exact path='/currencies' element={<CurrenciesPage />} />
@@ -169,23 +170,19 @@ function App() {
         <Route exact path='/faq' element={<FaqPage />} />
         <Route exact path='/form-layout' element={<FormLayoutPage />} />
         <Route exact path='/form-validation' element={<FormValidationPage />} />
-        <Route exact path='/form' element={<FormPage />} />
+        <Route exact path='/form' element={<FormPage />} /> */}
 
-        <Route exact path='/gallery' element={<GalleryPage />} />
+        {/* <Route exact path='/gallery' element={<GalleryPage />} />
         <Route exact path='/gallery-grid' element={<GalleryGridPage />} />
         <Route exact path='/gallery-masonry' element={<GalleryMasonryPage />} />
         <Route exact path='/gallery-hover' element={<GalleryHoverPage />} />
-
         <Route exact path='/blog' element={<BlogPage />} />
         <Route exact path='/blog-details' element={<BlogDetailsPage />} />
         <Route exact path='/add-blog' element={<AddBlogPage />} />
-
         <Route exact path='/testimonials' element={<TestimonialsPage />} />
         <Route exact path='/coming-soon' element={<ComingSoonPage />} />
         <Route exact path='/access-denied' element={<AccessDeniedPage />} />
         <Route exact path='/maintenance' element={<MaintenancePage />} />
-        <Route exact path='/dashboard' element={<BlankPagePage />} />
-
         <Route exact path='/image-generator' element={<ImageGeneratorPage />} />
         <Route exact path='/image-upload' element={<ImageUploadPage />} />
         <Route exact path='/invoice-add' element={<InvoiceAddPage />} />
@@ -228,7 +225,7 @@ function App() {
         <Route exact path='/voice-generator' element={<VoiceGeneratorPage />} />
         <Route exact path='/wallet' element={<WalletPage />} />
         <Route exact path='/widgets' element={<WidgetsPage />} />
-        <Route exact path='/wizard' element={<WizardPage />} />
+        <Route exact path='/wizard' element={<WizardPage />} /> */}
 
         <Route exact path='*' element={<ErrorPage />} />
       </Routes>

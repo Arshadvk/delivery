@@ -202,7 +202,7 @@ const CodeGeneratorLayer = () => {
               </button>
             </div>
             {/* User generated Text End */}
-            {/* WowDash generated Text Start */}
+            {/* generated Text Start */}
             <div className='d-flex align-items-start gap-16 border-bottom border-neutral-200 pb-16 mb-16'>
               <div className='img overflow-hidden flex-shrink-0'>
                 <img

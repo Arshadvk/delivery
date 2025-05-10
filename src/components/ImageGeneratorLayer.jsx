@@ -313,7 +313,7 @@ const ImageGeneratorLayer = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* WowDash generated Text End */}
+                        {/*  generated Text End */}
                         {/* User generated Text Start */}
                         <div className="d-flex align-items-start justify-content-between gap-16 border-bottom border-neutral-200 pb-16 mb-16">
                             <div className="d-flex align-items-center gap-16">
@@ -339,7 +339,7 @@ const ImageGeneratorLayer = () => {
                             </button>
                         </div>
                         {/* User generated Text End */}
-                        {/* WowDash generated Text Start */}
+                        {/*  generated Text Start */}
                         <div className="d-flex align-items-start gap-16 border-bottom border-neutral-200 pb-16 mb-16">
                             <div className="img overflow-hidden flex-shrink-0">
                                 <img
@@ -404,7 +404,7 @@ const ImageGeneratorLayer = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* WowDash generated Text End */}
+                        {/*  generated Text End */}
                     </div>
                     <form className="chat-message-box">
                         <input

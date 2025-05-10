@@ -287,8 +287,8 @@ const MasterLayout = ({ children }) => {
                 {/* ThemeToggleButton */}
                 <ThemeToggleButton />
 
-                {/* Language dropdown end */}
-                <div className='dropdown'>
+             
+                {/* <div className='dropdown'>
                   <button
                     className='has-indicator w-40-px h-40-px bg-neutral-200 rounded-circle d-flex justify-content-center align-items-center'
                     type='button'
@@ -471,9 +471,9 @@ const MasterLayout = ({ children }) => {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/* Message dropdown end */}
-                <div className='dropdown'>
+                {/* <div className='dropdown'>
                   <button
                     className='has-indicator w-40-px h-40-px bg-neutral-200 rounded-circle d-flex justify-content-center align-items-center'
                     type='button'
@@ -621,7 +621,7 @@ const MasterLayout = ({ children }) => {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/* Notification dropdown end */}
                 <div className='dropdown'>
                   <button
@@ -665,7 +665,7 @@ const MasterLayout = ({ children }) => {
                           My Profile
                         </Link>
                       </li>
-                      <li>
+                      {/* <li>
                         <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
                           to='/email'
@@ -676,7 +676,7 @@ const MasterLayout = ({ children }) => {
                           />{" "}
                           Inbox
                         </Link>
-                      </li>
+                      </li> */}
                       <li>
                         <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
