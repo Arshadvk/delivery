@@ -31,22 +31,6 @@ const UsersListLayer = ({user}) => {
         <div className="card h-100 p-0 radius-12">
             <div className="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
                 <div className="d-flex align-items-center flex-wrap gap-3">
-                    <span className="text-md fw-medium text-secondary-light mb-0">Show</span>
-                    <select className="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px" defaultValue="Select Number">
-                        <option value="Select Number" disabled>
-                            Select Number
-                        </option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
                     <form className="navbar-search">
                         <input
                             type="text"
@@ -56,13 +40,7 @@ const UsersListLayer = ({user}) => {
                         />
                         <Icon icon="ion:search-outline" className="icon" />
                     </form>
-                    <select className="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px" defaultValue="Select Status">
-                        <option value="Select Status" disabled>
-                            Select Status
-                        </option>
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
-                    </select>
+                   
                 </div>
                 <Link
                     to={`/add-${user}`}

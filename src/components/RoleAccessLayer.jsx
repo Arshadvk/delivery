@@ -1,10 +1,21 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Select from "react-select";
 
 const RoleAccessLayer = () => {
   const navigate = useNavigate();
+  const [selectedPermissions, setSelectedPermissions] = useState([]);
+  const handlePermissionChange = (selectedOptions) => {
+    setSelectedPermissions(selectedOptions || []);
+  };
+  const permissionOptions = [
+    { value: "view_users", label: "View Users" },
+    { value: "edit_users", label: "Edit Users" },
+    { value: "delete_users", label: "Delete Users" },
+    { value: "create_users", label: "Create Users" },
+  ];
 
   const handleDelete = () => {
     Swal.fire({
@@ -242,55 +253,16 @@ const RoleAccessLayer = () => {
                     <label className="form-label fw-semibold text-primary-light text-sm mb-8">
                       Permissions
                     </label>
-                    <div className="d-flex flex-wrap gap-2">
-                      <div className="form-check me-3">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="permissions"
-                          value="view_users"
-                          id="permViewUsers"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="permViewUsers"
-                        >
-                          View Users
-                        </label>
-                      </div>
-                      <div className="form-check me-3">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="permissions"
-                          value="edit_users"
-                          id="permEditUsers"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="permEditUsers"
-                        >
-                          Edit Users
-                        </label>
-                      </div>
-                      <div className="form-check me-3">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="permissions"
-                          value="delete_users"
-                          id="permDeleteUsers"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="permDeleteUsers"
-                        >
-                          Delete Users
-                        </label>
-                      </div>
-
-                      {/* Add more as needed */}
-                    </div>
+                    <Select
+                      isMulti
+                      name="permissions"
+                      options={permissionOptions}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      value={selectedPermissions}
+                      onChange={handlePermissionChange}
+                      placeholder="Select permissions..."
+                    />
                   </div>
 
                   <div className="d-flex align-items-center justify-content-center gap-3 mt-24">
@@ -372,55 +344,16 @@ const RoleAccessLayer = () => {
                     <label className="form-label fw-semibold text-primary-light text-sm mb-8">
                       Permissions
                     </label>
-                    <div className="d-flex flex-wrap gap-2">
-                      <div className="form-check me-3">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="permissions"
-                          value="view_users"
-                          id="permViewUsers"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="permViewUsers"
-                        >
-                          View Users
-                        </label>
-                      </div>
-                      <div className="form-check me-3">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="permissions"
-                          value="edit_users"
-                          id="permEditUsers"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="permEditUsers"
-                        >
-                          Edit Users
-                        </label>
-                      </div>
-                      <div className="form-check me-3">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="permissions"
-                          value="delete_users"
-                          id="permDeleteUsers"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="permDeleteUsers"
-                        >
-                          Delete Users
-                        </label>
-                      </div>
-
-                      {/* Add more as needed */}
-                    </div>
+                    <Select
+                      isMulti
+                      name="permissions"
+                      options={permissionOptions}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      value={selectedPermissions}
+                      onChange={handlePermissionChange}
+                      placeholder="Select permissions..."
+                    />
                   </div>
 
                   <div className="d-flex align-items-center justify-content-center gap-3 mt-24">
