@@ -97,6 +97,10 @@ import AccessDeniedPage from "./pages/AccessDeniedPage";
 import MaintenancePage from "./pages/MaintenancePage";
 import BlankPagePage from "./pages/BlankPagePage";
 import ApplicationSettings from "./components/ApplicationSettings";
+import DriversListPage from "./pages/DriversListPage";
+import AdminsListPage from "./pages/AdminsListPage";
+import AddAdminPage from "./pages/AddAdminPage";
+import AddDriverPage from "./pages/AddDriverPage";
 
 function App() {
   return (
@@ -113,16 +117,16 @@ function App() {
 
         {/* admin management */}
         <Route exact path='/users-list' element={<UsersListPage  user="user" title="Users List" />} />
-        <Route exact path='/admins-list' element={<UsersListPage user="admin" title="Admins List" />} />
-        <Route exact path='/drivers-list' element={<UsersListPage  user="driver" title="Drivers List"  />} />
+        <Route exact path='/admins-list' element={<AdminsListPage user="admin" title="Admins List" />} />
+        <Route exact path='/drivers-list' element={<DriversListPage  user="driver" />} />
 
         
         <Route exact path='/view-profile' element={<ViewProfilePage />} />
 
         {/* crud user */}
         <Route exact path='/add-user' element={<AddUserPage  user="user" title="Add Users" />} />
-        <Route exact path='/add-admin' element={<AddUserPage user="admin" title="Add Admins" />} />
-        <Route exact path='/add-driver' element={<AddUserPage user="driver" title="Add Drivers"/>} />
+        <Route exact path='/add-admin' element={<AddAdminPage user="admin" title="Add Admins" />} />
+        <Route exact path='/add-driver' element={<AddDriverPage user="driver" title="Add Drivers"/>} />
        
 
         <Route exact path='/role-access' element={<RoleAccessPage />} />

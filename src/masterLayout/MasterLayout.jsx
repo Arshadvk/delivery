@@ -136,7 +136,7 @@ const MasterLayout = ({ children }) => {
             <li className="sidebar-menu-group-title" onClick={toggleDropdown} style={{ cursor: "pointer" }}>
               Main Menu
               <span style={{ float: 'right' }}>
-                {/* {isDropdownOpen ? "▲" : "▼"} */}
+                {isDropdownOpen ? "▲" : "▼"}
               </span>
             </li>
 
@@ -153,9 +153,10 @@ const MasterLayout = ({ children }) => {
             )}
 
 
-
+<hr />
+            
             <li className='sidebar-menu-group-title' onClick={toggleOpreationDropdown} style={{ cursor: "pointer" }}>Operations <span style={{ float: 'right' }}>
-              {/* {isOpreationOpen ? "▲" : "▼"} */}
+              {isOpreationOpen ? "▲" : "▼"}
             </span></li>
 
             {/* Invoice Dropdown */}
@@ -187,8 +188,10 @@ const MasterLayout = ({ children }) => {
               </ul>
             )}
 
-
-            <li className='sidebar-menu-group-title' onClick={toggleManagementDropdown} style={{ cursor: "pointer" }}>User Management</li>
+            <hr />
+            <li className='sidebar-menu-group-title' onClick={toggleManagementDropdown} style={{ cursor: "pointer" }}>User Management<span style={{ float: 'right' }}>
+              {isManagementOpen ? "▲" : "▼"}
+            </span></li> 
             {isManagementOpen && (
               <ul className="submenu">
             <li>
@@ -218,8 +221,12 @@ const MasterLayout = ({ children }) => {
             </li>
             </ul>
             )}
-
-            <li className='sidebar-menu-group-title'  onClick={toggleSettingsDropdown} style={{ cursor: "pointer" }}>Settings </li>
+            
+            <hr />
+            
+            <li className='sidebar-menu-group-title'  onClick={toggleSettingsDropdown} style={{ cursor: "pointer" }}>Settings<span style={{ float: 'right' }}>
+              {isSettingsOpen ? "▲" : "▼"}
+            </span></li> 
             {isSettingsOpen && (
                 <ul className="submenu">
             <li>
