@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import ThemeToggleButton from "../helper/ThemeToggleButton";
 
 const MasterLayout = ({ children }) => {
+   const navigate = useNavigate();
   let [sidebarActive, seSidebarActive] = useState(false);
   let [mobileMenu, setMobileMenu] = useState(false);
   const location = useLocation(); // Hook to get the current route
@@ -102,6 +103,11 @@ const MasterLayout = ({ children }) => {
   const toggleSettingsDropdown = () => {
     setSettingsOpen(!isSettingsOpen);
   };
+
+  const LogoOut = () =>{
+    localStorage.removeItem('accessToken')
+    navigate("/");
+  }
 
   return (
     <section className={mobileMenu ? "overlay active" : "overlay "}>
@@ -697,13 +703,13 @@ const MasterLayout = ({ children }) => {
                         </Link>
                       </li>
                       <li>
-                        <Link
+                        <button
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3'
-                          to='/sign-in'
+                          onClick={()=>LogoOut()}
                         >
                           <Icon icon='lucide:power' className='icon text-xl' />{" "}
                           Log Out
-                        </Link>
+                        </button>
                       </li>
                     </ul>
                   </div>

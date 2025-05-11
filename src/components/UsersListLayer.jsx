@@ -23,9 +23,9 @@ const UsersListLayer = ({user}) => {
     };
 
     const navigate = useNavigate();
-    const User = [{ id: 1, name: 'Kathryn Murphy', email: 'osgoodwy@gmail.com', number: "+1 234 567 8900", status: "active", image: "assets/images/svg/avatar/avatar.svg" },
-    { id: 2, name: 'Annette Black', email: 'redaniel@gmail.com', number: "+1 234 567 8900", status: "Inactive", image: "assets/images/svg/avatar/avatar-1.svg" },
-    { id: 3, name: 'Ronald Richards', email: 'seannand@gmail.com', number: "+1 234 567 8900", status: "active", image: "assets/images/svg/avatar/avatar-2.svg" }
+    const User = [{ id: 1, name: 'Kathryn Murphy', email: 'osgoodwy@gmail.com', number: "+1 234 567 8900", status: "active", due: "xxxxx", image: "assets/images/svg/avatar/avatar.svg" },
+    { id: 2, name: 'Annette Black', email: 'redaniel@gmail.com', number: "+1 234 567 8900", status: "Inactive",due: "xxxxx", image: "assets/images/svg/avatar/avatar-1.svg" },
+    { id: 3, name: 'Ronald Richards', email: 'seannand@gmail.com', number: "+1 234 567 8900", status: "active", due: "xxxxx", image: "assets/images/svg/avatar/avatar-2.svg" }
     ]
     return (
         <div className="card h-100 p-0 radius-12">
@@ -61,6 +61,7 @@ const UsersListLayer = ({user}) => {
                                 <th scope="col"> S.L </th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Payment Due</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col" className="text-center">
                                     Status
@@ -93,6 +94,11 @@ const UsersListLayer = ({user}) => {
                                     <td>
                                         <span className="text-md mb-0 fw-normal text-secondary-light">
                                             {user.email}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className="text-md mb-0 fw-normal text-secondary-light">
+                                            {user.due}
                                         </span>
                                     </td>
                                     <td>{user.number}</td>

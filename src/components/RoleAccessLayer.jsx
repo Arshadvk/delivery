@@ -1,21 +1,19 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Select from "react-select";
+import axios from "axios";
 
 const RoleAccessLayer = () => {
   const navigate = useNavigate();
+  const [selectedRole, setSelectedRole] = useState(null);
   const [selectedPermissions, setSelectedPermissions] = useState([]);
+  const [permissions, setPermissions] = useState([]);
+  const [role, setRoles] = useState([]);
   const handlePermissionChange = (selectedOptions) => {
     setSelectedPermissions(selectedOptions || []);
   };
-  const permissionOptions = [
-    { value: "view_users", label: "View Users" },
-    { value: "edit_users", label: "Edit Users" },
-    { value: "delete_users", label: "Delete Users" },
-    { value: "create_users", label: "Create Users" },
-  ];
 
   const handleDelete = () => {
     Swal.fire({
@@ -39,29 +37,71 @@ const RoleAccessLayer = () => {
     { no: 2, description: "Company Driver", role: "Driver" },
     { no: 3, description: "User Dashboard", role: "User" },
   ];
+
+  const handleEditSubmit = () => {
+    const token = localStorage.getItem("accessToken");
+  
+    if (token && selectedRole?._id) {
+      axios.put( `https://logistics.nicheperfumery.ae/role/${selectedRole._id}`, selectedRole,
+        ).then((response) => {
+          console.log("Updated Role:", response.data.data);
+          // Optionally update your UI or refetch roles
+        }).catch((error) => {
+          console.error("Error updating role:", error);
+        });
+    }
+  };
+  
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      // Fetch Roles
+      axios.get("https://logistics.nicheperfumery.ae/role", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setRoles(response.data.data.data);
+          console.log("Role data:", response.data.data.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching role:", error);
+        });
+
+      // Fetch Permissions
+      axios
+        .get("https://logistics.nicheperfumery.ae/permission", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          const data = response.data.data.data;
+
+          // ✅ Make sure to return the value in map
+          const permissionOptions = data?.map((item) => ({
+            label: item.name,
+            value: item.name,
+          }));
+          setPermissions(permissionOptions);
+
+          console.log("Permission data:", permissionOptions);
+        })
+        .catch((error) => {
+          console.error("Error fetching permissions:", error);
+        });
+    }
+  }, []);
+
   return (
     <>
       <div className="card h-100 p-0 radius-12">
         <div className="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
           <div className="d-flex align-items-center flex-wrap gap-3">
-            {/* <span className="text-md fw-medium text-secondary-light mb-0">
-                            Show
-                        </span>
-                        <select className="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px" defaultValue="Select Number">
-                            <option value="Select Number" disabled>
-                                Select Number
-                            </option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select> */}
             <form className="navbar-search">
               <input
                 type="text"
@@ -92,29 +132,39 @@ const RoleAccessLayer = () => {
               <thead>
                 <tr>
                   <th scope="col">No</th>
-                  <th>Description</th>
                   <th scope="col">Role </th>
+                  <th>Description</th>
                   <th scope="col" className="text-center">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {roles.map((role, index) => (
+                {role?.map((role, index) => (
                   <tr key={role.id}>
-                    <td>{role.no}</td>
+                    <td>{index + 1}</td>
+                    <td>{role?.name}</td>
                     <td>{role.description}</td>
-                    <td>{role.role}</td>
                     <td className="text-center">
                       <div className="d-flex align-items-center gap-10 justify-content-center">
                         <button
                           data-bs-toggle="modal"
                           data-bs-target="#editModal"
                           type="button"
+                          onClick={() => {
+                            setSelectedRole(role); // pass current role object
+                            setSelectedPermissions(
+                              role.permissions?.map((perm) => ({
+                                label: perm.name,
+                                value: perm.name,
+                              }))
+                            );
+                          }}
                           className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                         >
                           <Icon icon="lucide:edit" className="menu-icon" />
                         </button>
+
                         <button
                           onClick={handleDelete}
                           type="button"
@@ -132,68 +182,6 @@ const RoleAccessLayer = () => {
               </tbody>
             </table>
           </div>
-          {/* <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-24">
-                        <span>Showing 1 to 10 of 12 entries</span>
-                        <ul className="pagination d-flex flex-wrap align-items-center gap-2 justify-content-center">
-                            <li className="page-item">
-                                <Link
-                                    className="page-link bg-neutral-200 text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md"
-                                    to="#"
-                                >
-                                    <Icon icon="ep:d-arrow-left" className="" />
-                                </Link>
-                            </li>
-                            <li className="page-item">
-                                <Link
-                                    className="page-link text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md bg-primary-600 text-white"
-                                    to="#"
-                                >
-                                    1
-                                </Link>
-                            </li>
-                            <li className="page-item">
-                                <Link
-                                    className="page-link bg-neutral-200 text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px"
-                                    to="#"
-                                >
-                                    2
-                                </Link>
-                            </li>
-                            <li className="page-item">
-                                <Link
-                                    className="page-link bg-neutral-200 text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md"
-                                    to="#"
-                                >
-                                    3
-                                </Link>
-                            </li>
-                            <li className="page-item">
-                                <Link
-                                    className="page-link bg-neutral-200 text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md"
-                                    to="#"
-                                >
-                                    4
-                                </Link>
-                            </li>
-                            <li className="page-item">
-                                <Link
-                                    className="page-link bg-neutral-200 text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md"
-                                    to="#"
-                                >
-                                    5
-                                </Link>
-                            </li>
-                            <li className="page-item">
-                                <Link
-                                    className="page-link bg-neutral-200 text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md"
-                                    to="#"
-                                >
-                                    {" "}
-                                    <Icon icon="ep:d-arrow-right" className="" />{" "}
-                                </Link>
-                            </li>
-                        </ul>
-                    </div> */}
         </div>
       </div>
       {/* Modal Start */}
@@ -256,7 +244,7 @@ const RoleAccessLayer = () => {
                     <Select
                       isMulti
                       name="permissions"
-                      options={permissionOptions}
+                      options={permissions}
                       className="basic-multi-select"
                       classNamePrefix="select"
                       value={selectedPermissions}
@@ -309,8 +297,12 @@ const RoleAccessLayer = () => {
               />
             </div>
             <div className="modal-body p-24">
-              <form action="#">
+              <form onSubmit={handleEditSubmit}>
                 <div className="row">
+
+
+                  <input hidden type="text" value={selectedRole?._id}/>
+
                   <div className="col-12 mb-20">
                     <label className="form-label fw-semibold text-primary-light text-sm mb-8">
                       Role Name
@@ -319,8 +311,14 @@ const RoleAccessLayer = () => {
                       type="text"
                       name="roleName"
                       className="form-control radius-8"
-                      placeholder="Enter Role  Name"
+                      placeholder="Enter Role Name"
+                      value={selectedRole?.name}
+                      onChange={(e) =>
+                        setSelectedRole((prev) => ({ ...prev, name: e.target.value }))
+                      }
                     />
+
+
                   </div>
                   <div className="col-12 mb-20">
                     <label
@@ -336,8 +334,9 @@ const RoleAccessLayer = () => {
                       rows={4}
                       cols={50}
                       placeholder="Write about role"
-                      defaultValue={""}
+                      value={selectedRole?.description || ""}
                     />
+
                   </div>
 
                   <div className="col-12 mb-20">
@@ -347,7 +346,7 @@ const RoleAccessLayer = () => {
                     <Select
                       isMulti
                       name="permissions"
-                      options={permissionOptions}
+                      options={permissions}
                       className="basic-multi-select"
                       classNamePrefix="select"
                       value={selectedPermissions}
