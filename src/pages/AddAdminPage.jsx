@@ -5,14 +5,14 @@ import AddUserLayer from "../components/AddUserLayer";
 import AddAdminLayer from "../components/AddAdminLayer";
 
 
-const AddAdminPage = ({title , user}) => {
+const AddAdminPage = ({ user}) => {
   return (
     <>
       {/* MasterLayout */}
       <MasterLayout>
 
         {/* Breadcrumb */}
-        <Breadcrumb title={title} />
+        <Breadcrumb title={"Add Admins"} />
 
         {/* AddUserLayer */}
         <AddAdminLayer user={user}/>

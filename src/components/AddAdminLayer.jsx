@@ -1,10 +1,22 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Select from "react-select";
+import axios from 'axios';
 
 const AddAdminLayer = () => {
 
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+    const [selectedPermissions, setSelectedPermissions] = useState([]);
+    const [permissionOptions, setPermissionOptions] = useState([]);
+  const [isShowPassword, setShowPassword] = useState(false);
 
+    const handlePermissionChange = (selectedOptions) => {
+        setSelectedPermissions(selectedOptions || []);
+    };
+    
+    const showPassword = () => {
+        setShowPassword(!isShowPassword);
+      };
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -15,6 +27,16 @@ const AddAdminLayer = () => {
             reader.readAsDataURL(file);
         }
     };
+    useEffect(() => {
+        axios.get('https://logistics.nicheperfumery.ae/role')
+            .then((response) => {
+                console.log(response.data)
+                setPermissionOptions(response.data); // Adjust if API structure differs
+            })
+            .catch((error) => {
+                console.error('Failed to fetch roles:', error);
+            });
+    }, []);
     return (
         <div className="card h-100 p-0 radius-12">
             <div className="card-body p-24">
@@ -22,37 +44,6 @@ const AddAdminLayer = () => {
                     <div className="col-xxl-6 col-xl-8 col-lg-10">
                         <div className="card border">
                             <div className="card-body">
-                                <h6 className="text-md text-primary-light mb-16">Profile Image</h6>
-                                {/* Upload Image Start */}
-                                <div className="mb-24 mt-16">
-                                    <div className="avatar-upload">
-                                        <div className="avatar-edit position-absolute bottom-0 end-0 me-24 mt-16 z-1 cursor-pointer">
-                                            <input
-                                                type="file"
-                                                id="imageUpload"
-                                                accept=".png, .jpg, .jpeg"
-                                                hidden
-                                                onChange={handleImageChange}
-                                            />
-                                            <label
-                                                htmlFor="imageUpload"
-                                                className="w-32-px h-32-px d-flex justify-content-center align-items-center bg-primary-50 text-primary-600 border border-primary-600 bg-hover-primary-100 text-lg rounded-circle">
-                                                <Icon icon="solar:camera-outline" className="icon"></Icon>
-                                            </label>
-                                        </div>
-                                        <div className="avatar-preview">
-                                            <div
-                                                id="imagePreview"
-                                                style={{
-                                                    backgroundImage: imagePreviewUrl ? `url(${imagePreviewUrl})` : '',
-
-                                                }}
-                                            >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Upload Image End */}
                                 <form action="#">
                                     <div className="mb-20">
                                         <label
@@ -65,6 +56,8 @@ const AddAdminLayer = () => {
                                             type="text"
                                             className="form-control radius-8"
                                             id="name"
+                                            name='name'
+                                            required
                                             placeholder="Enter Full Name"
                                         />
                                     </div>
@@ -79,78 +72,71 @@ const AddAdminLayer = () => {
                                             type="email"
                                             className="form-control radius-8"
                                             id="email"
+                                            name='email'
+                                            required
                                             placeholder="Enter email address"
                                         />
                                     </div>
                                     <div className="mb-20">
                                         <label
-                                            htmlFor="number"
+                                            htmlFor="email"
                                             className="form-label fw-semibold text-primary-light text-sm mb-8"
                                         >
-                                            Phone
+                                            User Type <span className="text-danger-600">*</span>
                                         </label>
                                         <input
                                             type="email"
                                             className="form-control radius-8"
-                                            id="number"
-                                            placeholder="Enter phone number"
+                                            id="email"
+                                            name='userType'
+                                            value={"admin"}
+                                            required
+                                            placeholder="Enter email address"
                                         />
                                     </div>
                                     <div className="mb-20">
                                         <label
-                                            htmlFor="depart"
+                                            htmlFor="email"
                                             className="form-label fw-semibold text-primary-light text-sm mb-8"
                                         >
-                                            Department
-                                            <span className="text-danger-600">*</span>{" "}
+                                            User Permissions<span className="text-danger-600">*</span>
                                         </label>
-                                        <select
-                                            className="form-control radius-8 form-select"
-                                            id="depart"
-                                            defaultValue="Enter Event Title"
-                                        >
-                                            <option value="Enter Event Title" disabled>
-                                                Enter Event Title
-                                            </option>
-                                            <option value="Enter Event Title One">Enter Event Title One</option>
-                                            <option value="Enter Event Title Two">Enter Event Title Two</option>
-                                        </select>
+                                    <Select
+                                        isMulti
+                                        name="permissions"
+                                        options={permissionOptions}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        value={selectedPermissions}
+                                        onChange={handlePermissionChange}
+                                        placeholder="Select permissions..."
+                                    />
                                     </div>
-                                    <div className="mb-20">
-                                        <label
-                                            htmlFor="desig"
+                                    <label
+                                            htmlFor="email"
                                             className="form-label fw-semibold text-primary-light text-sm mb-8"
                                         >
-                                            Designation
-                                            <span className="text-danger-600">*</span>{" "}
+                                           Password <span className="text-danger-600">*</span>
                                         </label>
-                                        <select
-                                            className="form-control radius-8 form-select"
-                                            id="desig"
-                                            defaultValue="Enter Designation Title"
-                                        >
-                                            <option value="Enter Designation Title" disabled>
-                                                Enter Designation Title
-                                            </option>
-                                            <option value="Enter Designation Title One">Enter Designation Title One</option>
-                                            <option value="Enter Designation Title Two">Enter Designation Title Two</option>
-                                        </select>
-                                    </div>
-                                    <div className="mb-20">
-                                        <label
-                                            htmlFor="desc"
-                                            className="form-label fw-semibold text-primary-light text-sm mb-8"
-                                        >
-                                            Description
-                                        </label>
-                                        <textarea
-                                            name="#0"
-                                            className="form-control radius-8"
-                                            id="desc"
-                                            placeholder="Write description..."
-                                            defaultValue={""}
-                                        />
-                                    </div>
+                                   <div className='position-relative mb-20'>
+                                    
+                                              <div >
+                                                
+                                                <input
+                                                  type={isShowPassword ? 'text' : 'password'}
+                                                  name='password'
+                                                 className="form-control radius-8"
+                                                  id='your-password'
+                                                  placeholder='Password'
+                                                />
+                                              </div>
+                                              <span
+                                                onClick={showPassword}
+                                                className={`toggle-password ${
+                                                  isShowPassword ? "ri-eye-off-fill" : "ri-eye-line"
+                                                } cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light`}
+                                              />
+                                            </div>
                                     <div className="d-flex align-items-center justify-content-center gap-3">
                                         <button
                                             type="button"
