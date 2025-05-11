@@ -14,13 +14,14 @@ import DriversListPage from "./pages/DriversListPage";
 import AdminsListPage from "./pages/AdminsListPage";
 import AddAdminPage from "./pages/AddAdminPage";
 import AddDriverPage from "./pages/AddDriverPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <RouteScrollToTop />
       <Routes>
-      
+
         {/* auth */}
         <Route exact path='/' element={<SignInPage />} />
         <Route exact path='/sign-in' element={<SignInPage />} />
@@ -29,22 +30,25 @@ function App() {
 
 
         {/* admin management */}
-        <Route exact path='/users-list' element={<UsersListPage  user="user" title="Users List" />} />
-        <Route exact path='/admins-list' element={<AdminsListPage user="admin" title="Admins List" />} />
-        <Route exact path='/drivers-list' element={<DriversListPage  user="driver" />} />
+        <Route exact path='/users-list' element={<ProtectedRoute><UsersListPage user="user" title="Users List" /></ProtectedRoute>} />
+        <Route exact path='/admins-list' element={<ProtectedRoute><AdminsListPage user="admin" title="Admins List" /></ProtectedRoute>} />
+        <Route exact path='/drivers-list' element={<ProtectedRoute><DriversListPage user="driver" /></ProtectedRoute>} />
 
-        
-        <Route exact path='/view-profile' element={<ViewProfilePage />} />
+
+        <Route exact path='/view-profile' element={<ProtectedRoute><ViewProfilePage /></ProtectedRoute>} />
 
         {/* crud user */}
-        <Route exact path='/add-admin' element={<AddAdminPage user="admin"/>} />
-        <Route exact path='/add-user' element={<AddUserPage  user="user" title="Add Users" />} />
-        <Route exact path='/add-driver' element={<AddDriverPage user="driver" title="Add Drivers"/>} />
-       
+        <Route exact path='/add-admin' element={<ProtectedRoute><AddAdminPage user="admin" /></ProtectedRoute>} />
+        <Route exact path='/add-user' element={<ProtectedRoute><AddUserPage user="user" title="Add Users" /></ProtectedRoute>} />
+        <Route exact path='/add-driver' element={<ProtectedRoute><AddDriverPage user="driver" title="Add Drivers" /></ProtectedRoute>} />
 
-        <Route exact path='/role-access' element={<RoleAccessPage />} />
-        <Route exact path="/settings" element={<ApplicationSettings />} />
-        <Route exact path='/dashboard' element={<BlankPagePage />} />
+
+        <Route exact path='/role-access' element={<ProtectedRoute><RoleAccessPage /></ProtectedRoute>} />
+        <Route exact path="/settings" element={<ProtectedRoute><ApplicationSettings /></ProtectedRoute>} />
+
+        <Route exact path="/dashboard" element={<ProtectedRoute> <BlankPagePage /></ProtectedRoute> } />
+
+
 
 
         {/* <Route exact path='/assign-role' element={<AssignRolePage />} /> */}

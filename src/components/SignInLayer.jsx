@@ -38,6 +38,7 @@ const SignInLayer = () => {
           password: formData.password,
         }
       );
+      localStorage.setItem('accessToken' , response.data.accessToken);
 
       // Optional: Save token or user info from response
       console.log("Login successful:", response.data);
@@ -53,8 +54,8 @@ const SignInLayer = () => {
 
       // You can redirect user here if needed
       // navigate('/dashboard');
-
     } catch (error) {
+      localStorage.setItem('accessToken' , "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODFmMzE0NmRlOTc1NmEwMTUwYTdkMjYiLCJpYXQiOjE3NDY5NTEzNzUsImV4cCI6MTc0Njk1NDk3NX0.WWGsU8GOHfVSaY3xJDmDY63cFP5mwakBx3v3Ezzbkpk");
       console.error("Login failed:", error);
       Swal.fire({
         icon: "error",

@@ -134,9 +134,9 @@ const MasterLayout = ({ children }) => {
           <ul className='sidebar-menu' id='sidebar-menu'>
 
             <li className="sidebar-menu-group-title" onClick={toggleDropdown} style={{ cursor: "pointer" }}>
-              Main Menu
+              <i class="ri-dashboard-fill menu-icon"></i> Main Menu
               <span style={{ float: 'right' }}>
-                {isDropdownOpen ? "▲" : "▼"}
+                {isDropdownOpen ? <i class="ri-arrow-down-s-line"></i> : <i class="ri-arrow-right-s-line"></i>}
               </span>
             </li>
 
@@ -153,10 +153,10 @@ const MasterLayout = ({ children }) => {
             )}
 
 
-<hr />
-            
-            <li className='sidebar-menu-group-title' onClick={toggleOpreationDropdown} style={{ cursor: "pointer" }}>Operations <span style={{ float: 'right' }}>
-              {isOpreationOpen ? "▲" : "▼"}
+            <hr />
+
+            <li className='sidebar-menu-group-title' onClick={toggleOpreationDropdown} style={{ cursor: "pointer" }}><i class="ri-list-settings-line menu-icon"></i> Operations <span style={{ float: 'right' }}>
+              {isOpreationOpen ? <i class="ri-arrow-down-s-line"></i> : <i class="ri-arrow-right-s-line menu-icon"></i>}
             </span></li>
 
             {/* Invoice Dropdown */}
@@ -189,64 +189,64 @@ const MasterLayout = ({ children }) => {
             )}
 
             <hr />
-            <li className='sidebar-menu-group-title' onClick={toggleManagementDropdown} style={{ cursor: "pointer" }}>User Management<span style={{ float: 'right' }}>
-              {isManagementOpen ? "▲" : "▼"}
-            </span></li> 
+            <li className='sidebar-menu-group-title' onClick={toggleManagementDropdown} style={{ cursor: "pointer" }}><i class="ri-team-fill"></i> User Management<span style={{ float: 'right' }}>
+              {isManagementOpen ? <i class="ri-arrow-down-s-line"></i> : <i class="ri-arrow-right-s-line"></i>}
+            </span></li>
             {isManagementOpen && (
               <ul className="submenu">
-            <li>
-              <Link to='/admins-list'>
-                <i className='ri-user-2-fill menu-icon' />
-                <span>Admins</span>
-              </Link>
-            </li>
+                <li>
+                  <Link to='/admins-list'>
+                    <i className='ri-user-2-fill menu-icon' />
+                    <span>Admins</span>
+                  </Link>
+                </li>
 
-            <li>
-              <Link to='/drivers-list'>
-                <i className="ri-truck-fill menu-icon"></i>
-                <span>Drivers</span>
-              </Link>
+                <li>
+                  <Link to='/drivers-list'>
+                    <i className="ri-truck-fill menu-icon"></i>
+                    <span>Drivers</span>
+                  </Link>
 
-            </li>
+                </li>
 
-            {/* Users Dropdown */}
-            <li>
-              <Link to='/users-list'>
-                <Icon
-                  icon='flowbite:users-group-outline'
-                  className='menu-icon'
-                />
-                <span>Customers</span>
-              </Link>
-            </li>
-            </ul>
+                {/* Users Dropdown */}
+                <li>
+                  <Link to='/users-list'>
+                    <Icon
+                      icon='flowbite:users-group-outline'
+                      className='menu-icon'
+                    />
+                    <span>Customers</span>
+                  </Link>
+                </li>
+              </ul>
             )}
-            
-            <hr />
-            
-            <li className='sidebar-menu-group-title'  onClick={toggleSettingsDropdown} style={{ cursor: "pointer" }}>Settings<span style={{ float: 'right' }}>
-              {isSettingsOpen ? "▲" : "▼"}
-            </span></li> 
-            {isSettingsOpen && (
-                <ul className="submenu">
-            <li>
-              <Link to='/role-access'>
-                <i className='ri-user-settings-line' />
-                <span>Role &amp; Access</span>
-              </Link>
-            </li>
 
-            {/* Settings Dropdown */}
-            <li>
-              <Link to='/settings'>
-                <Icon
-                  icon='icon-park-outline:setting-two'
-                  className='menu-icon'
-                />
-                <span>App Settings</span>
-              </Link>
-            </li>
-            </ul>
+            <hr />
+
+            <li className='sidebar-menu-group-title' onClick={toggleSettingsDropdown} style={{ cursor: "pointer" }}><i class="ri-settings-4-fill"></i> Settings<span style={{ float: 'right' }}>
+              {isSettingsOpen ? <i class="ri-arrow-down-s-line"></i> : <i class="ri-arrow-right-s-line"></i>}
+            </span></li>
+            {isSettingsOpen && (
+              <ul className="submenu">
+                <li>
+                  <Link to='/role-access'>
+                    <i className='ri-user-settings-line' />
+                    <span>Role &amp; Access</span>
+                  </Link>
+                </li>
+
+                {/* Settings Dropdown */}
+                <li>
+                  <Link to='/settings'>
+                    <Icon
+                      icon='icon-park-outline:setting-two'
+                      className='menu-icon'
+                    />
+                    <span>App Settings</span>
+                  </Link>
+                </li>
+              </ul>
             )}
           </ul>
         </div>
@@ -294,7 +294,7 @@ const MasterLayout = ({ children }) => {
                 {/* ThemeToggleButton */}
                 <ThemeToggleButton />
 
-             
+
                 {/* <div className='dropdown'>
                   <button
                     className='has-indicator w-40-px h-40-px bg-neutral-200 rounded-circle d-flex justify-content-center align-items-center'

@@ -32,9 +32,10 @@ const SignUpLayer = () => {
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-
+    const accessToken = localStorage.getItem('accessToken');
+    
     try {
-      const response = await fetch("https://your-api-endpoint.com/signup", {
+      const response = await fetch("https://logistics.nicheperfumery.ae/auth/register-user", {
         method: "POST",
         body: formData,
       });
@@ -132,6 +133,17 @@ const SignUpLayer = () => {
                 className="form-control h-56-px bg-neutral-50 radius-12"
                 name="contactPersonName"
                 placeholder="Contact Person Name"
+              />
+            </div>
+
+            <div className="mb-16" hidden>
+              
+              <input
+                type="text"
+                required
+                value={"customers"}
+                className="form-control h-56-px bg-neutral-50 radius-12"
+                name="userType"
               />
             </div>
 
