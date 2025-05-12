@@ -38,21 +38,133 @@ const RoleAccessLayer = () => {
     { no: 3, description: "User Dashboard", role: "User" },
   ];
 
-  const handleEditSubmit = () => {
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    console.log("start");
     const token = localStorage.getItem("accessToken");
   
     if (token && selectedRole?._id) {
-      axios.put( `https://logistics.nicheperfumery.ae/role/${selectedRole._id}`, selectedRole,
-        ).then((response) => {
+      axios
+        .put(`https://logistics.nicheperfumery.ae/role/${selectedRole._id}`, selectedRole, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
           console.log("Updated Role:", response.data.data);
-          // Optionally update your UI or refetch roles
-        }).catch((error) => {
-          console.error("Error updating role:", error);
+  
+          // ✅ Show success alert
+          Swal.fire({
+            icon: "success",
+            title: "Role Updated",
+            text: "The role has been updated successfully.",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+  
+          // ✅ Refresh the role list
+          axios
+            .get("https://logistics.nicheperfumery.ae/role", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              setRoles(response.data.data.data);
+              console.log("Role data:", response.data.data.data);
+            })
+            .catch((error) => {
+              console.error("Error fetching roles:", error);
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Failed to fetch updated roles.",
+              });
+            });
+  
+          // ✅ Optionally close modal manually (if needed)
+          // document.getElementById("editModalCloseBtn")?.click();
+        })
+        .catch((error) => {
+          console.log("Error updating role:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Update Failed",
+            text: "There was a problem updating the role.",
+          });
+        }).finally(()=>{
+          document.getElementById("editModalCloseBtn")?.click();
         });
     }
   };
   
-
+  const handleAddSubmit = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("accessToken");
+  
+    const form = e.target;
+    const name = form.name.value.trim();
+    const description = form.description.value.trim();
+  
+    const roleData = {
+      name,
+      description,
+      permissions: selectedPermissions.map((perm) => perm.value), // assuming you use permission ids
+    };
+  
+    if (token) {
+      axios
+        .post("https://logistics.nicheperfumery.ae/role/", roleData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log("Created Role:", response.data.data);
+  
+          Swal.fire({
+            icon: "success",
+            title: "Role Created",
+            text: "The role has been added successfully.",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+  
+          // Refresh role list
+          axios
+            .get("https://logistics.nicheperfumery.ae/role", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              setRoles(response.data.data.data);
+            })
+            .catch((error) => {
+              console.error("Error fetching roles:", error);
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Failed to fetch updated roles.",
+              });
+            });
+  
+          // ✅ Close the modal
+          
+        })
+        .catch((error) => {
+          console.log("Error creating role:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Creation Failed",
+            text: "There was a problem creating the role.",
+          });
+        }).finally(()=>{
+          document.getElementById("addModalCloseBtn")?.click();
+        });;
+    }
+  };
+  
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -73,8 +185,7 @@ const RoleAccessLayer = () => {
         });
 
       // Fetch Permissions
-      axios
-        .get("https://logistics.nicheperfumery.ae/permission", {
+      axios.get("https://logistics.nicheperfumery.ae/permission", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -92,7 +203,7 @@ const RoleAccessLayer = () => {
           console.log("Permission data:", permissionOptions);
         })
         .catch((error) => {
-          console.error("Error fetching permissions:", error);
+          console.log("Error fetching permissions:", error);
         });
     }
   }, []);
@@ -144,7 +255,7 @@ const RoleAccessLayer = () => {
                   <tr key={role.id}>
                     <td>{index + 1}</td>
                     <td>{role?.name}</td>
-                    <td>{role.description}</td>
+                    <td>{role?.description}</td>
                     <td className="text-center">
                       <div className="d-flex align-items-center gap-10 justify-content-center">
                         <button
@@ -202,11 +313,12 @@ const RoleAccessLayer = () => {
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
+                id="addModalCloseBtn"
                 aria-label="Close"
               />
             </div>
             <div className="modal-body p-24">
-              <form action="#">
+              <form onSubmit={handleAddSubmit}>
                 <div className="row">
                   <div className="col-12 mb-20">
                     <label className="form-label fw-semibold text-primary-light text-sm mb-8">
@@ -214,7 +326,7 @@ const RoleAccessLayer = () => {
                     </label>
                     <input
                       type="text"
-                      name="roleName"
+                      name="name"
                       className="form-control radius-8"
                       placeholder="Enter Role  Name"
                     />
@@ -294,6 +406,7 @@ const RoleAccessLayer = () => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                id="editModalCloseBtn"
               />
             </div>
             <div className="modal-body p-24">
