@@ -15,6 +15,7 @@ import AdminsListPage from "./pages/AdminsListPage";
 import AddAdminPage from "./pages/AddAdminPage";
 import AddDriverPage from "./pages/AddDriverPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
 
 
         <Route exact path='/view-profile' element={<ProtectedRoute><ViewProfilePage /></ProtectedRoute>} />
+        <Route exact path='/profile' element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
         {/* crud user */}
         <Route exact path='/add-admin' element={<ProtectedRoute><AddAdminPage user="admin" /></ProtectedRoute>} />
