@@ -31,9 +31,27 @@ const AddAdminLayer = () => {
         axios.get('https://logistics.nicheperfumery.ae/role')
             .then((response) => {
                 console.log(response.data)
-                setPermissionOptions(response.data); // Adjust if API structure differs
+                setPermissionOptions(response.data); 
+                
+                
+                const data = response.data.data.data;
+
+          // ✅ Make sure to return the value in map
+          const permissionOptions = data?.map((item) => ({
+            label: item.name,
+            value: item.name,
+          }));
+          setPermissionOptions(permissionOptions);
+
+          console.log("Permission data:", permissionOptions);
+
+
+                // Adjust if API structure differs
             })
             .catch((error) => {
+                if(error.status == 401){
+                    localStorage.removeItem('accessToken')
+                }
                 console.error('Failed to fetch roles:', error);
             });
     }, []);
@@ -99,7 +117,7 @@ const AddAdminLayer = () => {
                                             htmlFor="email"
                                             className="form-label fw-semibold text-primary-light text-sm mb-8"
                                         >
-                                            User Permissions<span className="text-danger-600">*</span>
+                                            User Role<span className="text-danger-600">*</span>
                                         </label>
                                     <Select
                                         isMulti
@@ -109,7 +127,7 @@ const AddAdminLayer = () => {
                                         classNamePrefix="select"
                                         value={selectedPermissions}
                                         onChange={handlePermissionChange}
-                                        placeholder="Select permissions..."
+                                        placeholder="Select Roles..."
                                     />
                                     </div>
                                     <label

@@ -46,6 +46,9 @@ const AdminsListLayer = ({ user }) => {
                     setAdminData(response?.data?.data?.data || []);
                 })
                 .catch((error) => {
+                    if(error.status == 401){
+                        localStorage.removeItem('accessToken')
+                    }
                     console.error("Error fetching admins:", error);
                 });
         }
