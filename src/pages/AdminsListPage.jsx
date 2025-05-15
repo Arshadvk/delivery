@@ -12,7 +12,7 @@ const AdminsListPage = ({user}) => {
       <MasterLayout>
 
         {/* Breadcrumb */}
-        <Breadcrumb title={"Admins List"}/>
+        <Breadcrumb title={"Admins Management"}/>
 
         {/* UsersListLayer */}
         <AdminsListLayer user={user} />
