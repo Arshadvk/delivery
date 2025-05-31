@@ -8,6 +8,7 @@ const SignInLayer = () => {
   const navigate = useNavigate();
 
   const [isShowPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "admin@logad.com",
     password: "Password@123",
@@ -27,10 +28,9 @@ const SignInLayer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      console.log( "email:" , formData.email)
-      console.log( "password:" , formData.password)
       const response = await axios.post(
         "https://logistics.nicheperfumery.ae/auth/login-user",
         {
@@ -38,32 +38,23 @@ const SignInLayer = () => {
           password: formData.password,
         }
       );
-      localStorage.setItem('accessToken' , response.data.data.accessToken);
+      localStorage.setItem('accessToken', response.data.data.accessToken);
 
-      // Optional: Save token or user info from response
-      console.log("Login successful:", response.data);
-
-      
       Swal.fire({
         icon: "success",
         title: "Success!",
         text: "Login successful!",
       }).then(() => {
-        navigate("/dashboard"); // 🔁 Redirect to dashboard after alert
+        navigate("/dashboard");
       });
-
-      // You can redirect user here if needed
-      // navigate('/dashboard');
     } catch (error) {
-      localStorage.setItem('accessToken' , "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODFmMzE0NmRlOTc1NmEwMTUwYTdkMjYiLCJpYXQiOjE3NDY5NTEzNzUsImV4cCI6MTc0Njk1NDk3NX0.WWGsU8GOHfVSaY3xJDmDY63cFP5mwakBx3v3Ezzbkpk");
-      console.error("Login failed:", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Login failed. Please check your credentials.",
-      }).then(() => {
-        navigate("/dashboard"); // 🔁 Redirect to dashboard after alert
-      });
+      })
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -134,9 +125,17 @@ const SignInLayer = () => {
 
             <button
               type='submit'
-              className='btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32'
+              className='btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32 d-flex align-items-center justify-content-center'
+              disabled={loading}
             >
-              Sign In
+              {loading && (
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              )}
+              {loading ? "Signing In..." : "Sign In"}
             </button>
 
             <div className='mt-32 text-center text-sm'>

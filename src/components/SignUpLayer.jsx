@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 const SignUpLayer = () => {
   const [isShowPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const showPassword = () => {
     setShowPassword(!isShowPassword);
@@ -17,6 +18,8 @@ const SignUpLayer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
 
     if (!isChecked) {
       Swal.fire({
@@ -32,8 +35,7 @@ const SignUpLayer = () => {
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-    const accessToken = localStorage.getItem('accessToken');
-    
+
     try {
       const response = await fetch("https://logistics.nicheperfumery.ae/auth/register-user", {
         method: "POST",
@@ -61,6 +63,8 @@ const SignUpLayer = () => {
         title: "Oops...",
         text: "Something went wrong while submitting the form.",
       });
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -247,10 +251,11 @@ const SignUpLayer = () => {
             <button
               type="submit"
               className="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32"
-              disabled={!isChecked}
+              disabled={loading}
             >
-              {" "}
-              Sign Up
+              { loading ? (    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+):null }
+                {loading ? "Signing Up..." : "Sign Up"}
             </button>
             <div className="mt-32 text-center text-sm">
               <p className="mb-0">

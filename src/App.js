@@ -36,7 +36,7 @@ function App() {
         <Route exact path='/drivers-list' element={<ProtectedRoute><DriversListPage user="driver" /></ProtectedRoute>} />
 
 
-        <Route exact path='/view-profile' element={<ProtectedRoute><ViewProfilePage /></ProtectedRoute>} />
+        <Route exact path='/view-profile/:id' element={<ProtectedRoute><ViewProfilePage /></ProtectedRoute>} />
         <Route exact path='/profile' element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
         {/* crud user */}

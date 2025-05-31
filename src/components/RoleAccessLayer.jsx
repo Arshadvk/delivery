@@ -1,35 +1,18 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Select from "react-select";
 import axios from "axios";
 
 const RoleAccessLayer = () => {
-  const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState(null);
   const [selectedPermissions, setSelectedPermissions] = useState([]);
   const [permissions, setPermissions] = useState([]);
   const [role, setRoles] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const handlePermissionChange = (selectedOptions) => {
     setSelectedPermissions(selectedOptions || []);
-  };
-
-  const handleDelete = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "This action cannot be undone!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Perform delete logic here
-        Swal.fire("Deleted!", "Your item has been deleted.", "success");
-      }
-    });
   };
 
   const roles = [
@@ -40,8 +23,18 @@ const RoleAccessLayer = () => {
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+    
     console.log("start");
     const token = localStorage.getItem("accessToken");
+
+    const form = e.target;
+    const name = form.name.value
+
+    const roleData = {
+      name,
+      permissions: selectedPermissions.map((perm) => perm.value), 
+    };
   
     if (token && selectedRole?._id) {
       axios
@@ -100,6 +93,8 @@ const RoleAccessLayer = () => {
   
   const handleAddSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const token = localStorage.getItem("accessToken");
   
     const form = e.target;
@@ -109,7 +104,7 @@ const RoleAccessLayer = () => {
     const roleData = {
       name,
       description,
-      permissions: selectedPermissions.map((perm) => perm.value), // assuming you use permission ids
+      permissions: selectedPermissions.map((perm) => perm.value), 
     };
   
     if (token) {
@@ -160,7 +155,9 @@ const RoleAccessLayer = () => {
             text: "There was a problem creating the role.",
           });
         }).finally(()=>{
+          setLoading(false);
           document.getElementById("addModalCloseBtn")?.click();
+
         });;
     }
   };
@@ -192,11 +189,11 @@ const RoleAccessLayer = () => {
         })
         .then((response) => {
           const data = response.data.data.data;
-
+          console.log(data)
           // ✅ Make sure to return the value in map
           const permissionOptions = data?.map((item) => ({
             label: item.name,
-            value: item.name,
+            value: item._id,
           }));
           setPermissions(permissionOptions);
 
@@ -244,7 +241,7 @@ const RoleAccessLayer = () => {
                 <tr>
                   <th scope="col">No</th>
                   <th scope="col">Role </th>
-                  <th>Description</th>
+                  {/* <th>Description</th> */}
                   <th scope="col" className="text-center">
                     Action
                   </th>
@@ -255,7 +252,7 @@ const RoleAccessLayer = () => {
                   <tr key={role.id}>
                     <td>{index + 1}</td>
                     <td>{role?.name}</td>
-                    <td>{role?.description}</td>
+                    {/* <td>{role?.description}</td> */}
                     <td className="text-center">
                       <div className="d-flex align-items-center gap-10 justify-content-center">
                         <button
@@ -274,17 +271,6 @@ const RoleAccessLayer = () => {
                           className="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                         >
                           <Icon icon="lucide:edit" className="menu-icon" />
-                        </button>
-
-                        <button
-                          onClick={handleDelete}
-                          type="button"
-                          className="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                        >
-                          <Icon
-                            icon="fluent:delete-24-regular"
-                            className="menu-icon"
-                          />
                         </button>
                       </div>
                     </td>
@@ -375,6 +361,7 @@ const RoleAccessLayer = () => {
                     <button
                       type="submit"
                       className="btn btn-primary border border-primary-600 text-md px-48 py-12 radius-8"
+                      disabled={loading}
                     >
                       Save
                     </button>
