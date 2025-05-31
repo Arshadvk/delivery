@@ -15,12 +15,6 @@ const RoleAccessLayer = () => {
     setSelectedPermissions(selectedOptions || []);
   };
 
-  const roles = [
-    { no: 1, description: "Dashboard Admin", role: "Admin" },
-    { no: 2, description: "Company Driver", role: "Driver" },
-    { no: 3, description: "User Dashboard", role: "User" },
-  ];
-
   const handleEditSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,7 +32,7 @@ const RoleAccessLayer = () => {
   
     if (token && selectedRole?._id) {
       axios
-        .put(`https://logistics.nicheperfumery.ae/role/${selectedRole._id}`, selectedRole, {
+        .put(`https://logistics.nicheperfumery.ae/role/${selectedRole._id}`, roleData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

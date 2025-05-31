@@ -49,6 +49,8 @@ const AddAdminLayer = () => {
     e.preventDefault();
     setLoading(true);
     try {
+
+      axios.post("https://logistics.nicheperfumery.ae/role" , {})
       Swal.fire({
         icon: "success",
         title: "Success!",
@@ -88,6 +90,14 @@ const AddAdminLayer = () => {
                       required
                       placeholder="Enter Full Name"
                     />
+                    <input 
+                      type="text"
+                      hidden
+                      className="form-control radius-8"
+                      id="isVerified"
+                      name="isVerified"
+                      required
+                      value={true}/>
                   </div>
                   <div className="mb-20">
                     <label

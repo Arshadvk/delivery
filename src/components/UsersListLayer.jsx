@@ -142,7 +142,7 @@ const UsersListLayer = ({ user }) => {
                         <span className={`px-24 py-4 radius-4 fw-medium text-sm border ${user.isVerified
                           ? 'bg-success-focus text-success-600 border-success-main'
                           : 'bg-danger-focus text-danger-600 border-danger-main'}`}>
-                          {user.isVerified ? 'Verified' : 'Inactive'}
+                          {user.isVerified ? 'Verified' : 'Pending'}
                         </span>
                       </td>
                       <td className="text-center">
