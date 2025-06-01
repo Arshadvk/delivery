@@ -1,7 +1,8 @@
 import React from "react";
 import MasterLayout from "../masterLayout/MasterLayout";
 import Breadcrumb from "../components/Breadcrumb";
-import AddUserLayer from "../components/AddUserLayer";
+import AddDriverLayer from "../components/AddDriverLayer";
+
 
 
 const AddDriverPage = ({title , user}) => {
@@ -14,7 +15,7 @@ const AddDriverPage = ({title , user}) => {
         <Breadcrumb title={title} />
 
         {/* AddUserLayer */}
-        <AddDriverPage user={user}/>
+        <AddDriverLayer user={user}/>
 
 
       </MasterLayout>

@@ -17,19 +17,17 @@ const SignUpLayer = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     setLoading(true);
-
-
+    e.preventDefault();
     if (!isChecked) {
       Swal.fire({
         icon: "warning",
         title: "Agreement Required",
         text: "You must agree to the Terms & Conditions and Privacy Policy.",
       });
+      setLoading(false);
       return;
     }
-
     const form = e.target;
     const formData = new FormData(form);
     for (let [key, value] of formData.entries()) {

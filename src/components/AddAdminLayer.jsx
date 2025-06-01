@@ -4,13 +4,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const AddAdminLayer = () => {
-  const [selectedPermissions, setSelectedPermissions] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState([]);
   const [permissionOptions, setPermissionOptions] = useState([]);
   const [isShowPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handlePermissionChange = (selectedOptions) => {
-    setSelectedPermissions(selectedOptions || []);
+    setSelectedRoles(selectedOptions || []);
   };
 
   const showPassword = () => {
@@ -29,7 +29,7 @@ const AddAdminLayer = () => {
         // ✅ Make sure to return the value in map
         const permissionOptions = data?.map((item) => ({
           label: item.name,
-          value: item.name,
+          value: item._id,
         }));
         setPermissionOptions(permissionOptions);
 
@@ -48,16 +48,40 @@ const AddAdminLayer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
+    
 
-      axios.post("https://logistics.nicheperfumery.ae/role" , {})
-      Swal.fire({
+    const form = e.target;
+    const name = form.name.value
+    const email = form.email.value
+    const password = form.password.value
+
+    const userData = {
+      email: email,
+      password: password ,
+      name: name ,
+      userType: "admin",
+      isVerified: true,
+      roles: selectedRoles.map((perm) => perm.value)
+    }
+    try {
+      console.log(userData)
+      axios.post("https://logistics.nicheperfumery.ae/auth/create-user", userData).then((res)=>{
+         Swal.fire({
         icon: "success",
         title: "Success!",
         text: "Admin Created successful!",
       });
+      }).catch((error)=>{
+        console.log(error)
+        Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Admin Creation failed. Please check your credentials.",
+      });
+      })
+     
     } catch {
-      Swal.fire({
+       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Admin Creation failed. Please check your credentials.",
@@ -90,14 +114,14 @@ const AddAdminLayer = () => {
                       required
                       placeholder="Enter Full Name"
                     />
-                    <input 
+                    <input
                       type="text"
                       hidden
                       className="form-control radius-8"
                       id="isVerified"
                       name="isVerified"
                       required
-                      value={true}/>
+                      value={true} />
                   </div>
                   <div className="mb-20">
                     <label
@@ -125,7 +149,6 @@ const AddAdminLayer = () => {
                     <input
                       type="text"
                       className="form-control radius-8"
-                      id="email"
                       name="userType"
                       value={"admin"}
                       required
@@ -145,7 +168,7 @@ const AddAdminLayer = () => {
                       options={permissionOptions}
                       className="basic-multi-select"
                       classNamePrefix="select"
-                      value={selectedPermissions}
+                      value={selectedRoles}
                       onChange={handlePermissionChange}
                       placeholder="Select Roles..."
                     />
@@ -168,9 +191,8 @@ const AddAdminLayer = () => {
                     </div>
                     <span
                       onClick={showPassword}
-                      className={`toggle-password ${
-                        isShowPassword ? "ri-eye-off-fill" : "ri-eye-line"
-                      } cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light`}
+                      className={`toggle-password ${isShowPassword ? "ri-eye-off-fill" : "ri-eye-line"
+                        } cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light`}
                     />
                   </div>
                   <div className="d-flex align-items-center justify-content-center gap-3">

@@ -29,7 +29,10 @@ const RoleAccessLayer = () => {
       name,
       permissions: selectedPermissions.map((perm) => perm.value), 
     };
-  
+    
+    console.log(roleData )
+    console.log( selectedRole?._id)
+
     if (token && selectedRole?._id) {
       axios
         .put(`https://logistics.nicheperfumery.ae/role/${selectedRole._id}`, roleData, {
@@ -258,7 +261,7 @@ const RoleAccessLayer = () => {
                             setSelectedPermissions(
                               role.permissions?.map((perm) => ({
                                 label: perm.name,
-                                value: perm.name,
+                                value: perm._id,
                               }))
                             );
                           }}
@@ -403,7 +406,7 @@ const RoleAccessLayer = () => {
                     </label>
                     <input
                       type="text"
-                      name="roleName"
+                      name="name"
                       className="form-control radius-8"
                       placeholder="Enter Role Name"
                       value={selectedRole?.name}

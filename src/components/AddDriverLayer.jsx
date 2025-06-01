@@ -1,179 +1,230 @@
-import { Icon } from '@iconify/react/dist/iconify.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import Select from "react-select";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AddDriverLayer = () => {
+  const [selectedRoles, setSelectedRoles] = useState([]);
+  const [permissionOptions, setPermissionOptions] = useState([]);
+  const [isShowPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+  const handlePermissionChange = (selectedOptions) => {
+    setSelectedRoles(selectedOptions || []);
+  };
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagePreviewUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
+  const showPassword = () => {
+    setShowPassword(!isShowPassword);
+  };
+
+  useEffect(() => {
+    axios
+      .get("https://logistics.nicheperfumery.ae/role")
+      .then((response) => {
+        console.log(response.data);
+        setPermissionOptions(response.data);
+
+        const data = response.data.data.data;
+
+        // ✅ Make sure to return the value in map
+        const permissionOptions = data?.map((item) => ({
+          label: item.name,
+          value: item._id,
+        }));
+        setPermissionOptions(permissionOptions);
+
+        console.log("Permission data:", permissionOptions);
+
+        // Adjust if API structure differs
+      })
+      .catch((error) => {
+        if (error.status === 401) {
+          localStorage.removeItem("accessToken");
         }
-    };
-    return (
-        <div className="card h-100 p-0 radius-12">
-            <div className="card-body p-24">
-                <div className="row justify-content-center">
-                    <div className="col-xxl-6 col-xl-8 col-lg-10">
-                        <div className="card border">
-                            <div className="card-body">
-                                <h6 className="text-md text-primary-light mb-16">Profile Image</h6>
-                                {/* Upload Image Start */}
-                                <div className="mb-24 mt-16">
-                                    <div className="avatar-upload">
-                                        <div className="avatar-edit position-absolute bottom-0 end-0 me-24 mt-16 z-1 cursor-pointer">
-                                            <input
-                                                type="file"
-                                                id="imageUpload"
-                                                accept=".png, .jpg, .jpeg"
-                                                hidden
-                                                onChange={handleImageChange}
-                                            />
-                                            <label
-                                                htmlFor="imageUpload"
-                                                className="w-32-px h-32-px d-flex justify-content-center align-items-center bg-primary-50 text-primary-600 border border-primary-600 bg-hover-primary-100 text-lg rounded-circle">
-                                                <Icon icon="solar:camera-outline" className="icon"></Icon>
-                                            </label>
-                                        </div>
-                                        <div className="avatar-preview">
-                                            <div
-                                                id="imagePreview"
-                                                style={{
-                                                    backgroundImage: imagePreviewUrl ? `url(${imagePreviewUrl})` : '',
+        console.error("Failed to fetch roles:", error);
+      });
+  }, []);
 
-                                                }}
-                                            >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Upload Image End */}
-                                <form action="#">
-                                    <div className="mb-20">
-                                        <label
-                                            htmlFor="name"
-                                            className="form-label fw-semibold text-primary-light text-sm mb-8"
-                                        >
-                                            Full Name <span className="text-danger-600">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-control radius-8"
-                                            id="name"
-                                            placeholder="Enter Full Name"
-                                        />
-                                    </div>
-                                    <div className="mb-20">
-                                        <label
-                                            htmlFor="email"
-                                            className="form-label fw-semibold text-primary-light text-sm mb-8"
-                                        >
-                                            Email <span className="text-danger-600">*</span>
-                                        </label>
-                                        <input
-                                            type="email"
-                                            className="form-control radius-8"
-                                            id="email"
-                                            placeholder="Enter email address"
-                                        />
-                                    </div>
-                                    <div className="mb-20">
-                                        <label
-                                            htmlFor="number"
-                                            className="form-label fw-semibold text-primary-light text-sm mb-8"
-                                        >
-                                            Phone
-                                        </label>
-                                        <input
-                                            type="email"
-                                            className="form-control radius-8"
-                                            id="number"
-                                            placeholder="Enter phone number"
-                                        />
-                                    </div>
-                                    <div className="mb-20">
-                                        <label
-                                            htmlFor="depart"
-                                            className="form-label fw-semibold text-primary-light text-sm mb-8"
-                                        >
-                                            Department
-                                            <span className="text-danger-600">*</span>{" "}
-                                        </label>
-                                        <select
-                                            className="form-control radius-8 form-select"
-                                            id="depart"
-                                            defaultValue="Enter Event Title"
-                                        >
-                                            <option value="Enter Event Title" disabled>
-                                                Enter Event Title
-                                            </option>
-                                            <option value="Enter Event Title One">Enter Event Title One</option>
-                                            <option value="Enter Event Title Two">Enter Event Title Two</option>
-                                        </select>
-                                    </div>
-                                    <div className="mb-20">
-                                        <label
-                                            htmlFor="desig"
-                                            className="form-label fw-semibold text-primary-light text-sm mb-8"
-                                        >
-                                            Designation
-                                            <span className="text-danger-600">*</span>{" "}
-                                        </label>
-                                        <select
-                                            className="form-control radius-8 form-select"
-                                            id="desig"
-                                            defaultValue="Enter Designation Title"
-                                        >
-                                            <option value="Enter Designation Title" disabled>
-                                                Enter Designation Title
-                                            </option>
-                                            <option value="Enter Designation Title One">Enter Designation Title One</option>
-                                            <option value="Enter Designation Title Two">Enter Designation Title Two</option>
-                                        </select>
-                                    </div>
-                                    <div className="mb-20">
-                                        <label
-                                            htmlFor="desc"
-                                            className="form-label fw-semibold text-primary-light text-sm mb-8"
-                                        >
-                                            Description
-                                        </label>
-                                        <textarea
-                                            name="#0"
-                                            className="form-control radius-8"
-                                            id="desc"
-                                            placeholder="Write description..."
-                                            defaultValue={""}
-                                        />
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-center gap-3">
-                                        <button
-                                            type="button"
-                                            className="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-56 py-11 radius-8"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="btn btn-primary border border-primary-600 text-md px-56 py-12 radius-8"
-                                        >
-                                            Save
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    
+
+    const form = e.target;
+    const name = form.name.value
+    const email = form.email.value
+    const password = form.password.value
+
+    const userData = {
+      email: email,
+      password: password ,
+      name: name ,
+      userType: "driver",
+      isVerified: true,
+      roles: selectedRoles.map((perm) => perm.value)
+    }
+    try {
+      console.log(userData)
+      axios.post("https://logistics.nicheperfumery.ae/auth/create-user", userData).then((res)=>{
+         Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Driver Created successful!",
+      });
+      }).catch((error)=>{
+        console.log(error)
+        Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Driver Creation failed. Please check your credentials.",
+      });
+      })
+     
+    } catch {
+       Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Driver Creation failed. Please check your credentials.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="card h-100 p-0 radius-12">
+      <div className="card-body p-24">
+        <div className="row justify-content-center">
+          <div className="col-xxl-6 col-xl-8 col-lg-10">
+            <div className="card border">
+              <div className="card-body">
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-20">
+                    <label
+                      htmlFor="name"
+                      className="form-label fw-semibold text-primary-light text-sm mb-8"
+                    >
+                      Full Name <span className="text-danger-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control radius-8"
+                      id="name"
+                      name="name"
+                      required
+                      placeholder="Enter Full Name"
+                    />
+                    <input
+                      type="text"
+                      hidden
+                      className="form-control radius-8"
+                      id="isVerified"
+                      name="isVerified"
+                      required
+                      value={true} />
+                  </div>
+                  <div className="mb-20">
+                    <label
+                      htmlFor="email"
+                      className="form-label fw-semibold text-primary-light text-sm mb-8"
+                    >
+                      Email <span className="text-danger-600">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control radius-8"
+                      id="email"
+                      name="email"
+                      required
+                      placeholder="Enter email address"
+                    />
+                  </div>
+                  <div className="mb-20">
+                    <label
+                      htmlFor="userType"
+                      className="form-label fw-semibold text-primary-light text-sm mb-8"
+                    >
+                      User Type <span className="text-danger-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control radius-8"
+                      name="userType"
+                      value={"driver"}
+                      required
+                      placeholder="Enter email address"
+                    />
+                  </div>
+                  <div className="mb-20">
+                    <label
+                      htmlFor="permissions"
+                      className="form-label fw-semibold text-primary-light text-sm mb-8"
+                    >
+                      User Role<span className="text-danger-600">*</span>
+                    </label>
+                    <Select
+                      isMulti
+                      name="userRoles"
+                      options={permissionOptions}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      value={selectedRoles}
+                      onChange={handlePermissionChange}
+                      placeholder="Select Roles..."
+                    />
+                  </div>
+                  <label
+                    htmlFor="password"
+                    className="form-label fw-semibold text-primary-light text-sm mb-8"
+                  >
+                    Password <span className="text-danger-600">*</span>
+                  </label>
+                  <div className="position-relative mb-20">
+                    <div>
+                      <input
+                        type={isShowPassword ? "text" : "password"}
+                        name="password"
+                        className="form-control radius-8"
+                        id="your-password"
+                        placeholder="Password"
+                      />
                     </div>
-                </div>
+                    <span
+                      onClick={showPassword}
+                      className={`toggle-password ${isShowPassword ? "ri-eye-off-fill" : "ri-eye-line"
+                        } cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light`}
+                    />
+                  </div>
+                  <div className="d-flex align-items-center justify-content-center gap-3">
+                    <button
+                      type="button"
+                      className="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-56 py-11 radius-8"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn btn-primary border border-primary-600 text-md px-56 py-12 radius-8"
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <span
+                          className="spinner-border spinner-border-sm me-2"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                      ) : null}
+                      {loading ? "Saving..." : "Save"}
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
-
-    );
+      </div>
+    </div>
+  );
 };
 
 export default AddDriverLayer;

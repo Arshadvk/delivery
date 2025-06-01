@@ -1,9 +1,36 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 
 const ViewProfileLayer = () => {
+    const { id } = useParams();
+    const [userData, setUserData] = useState({})
+
+    useEffect(() => {
+  const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      
+      axios.get(`https://logistics.nicheperfumery.ae/user/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUserData(response.data.data);
+          console.log("Role data:", response.data.data);
+        })
+        .catch((error) => {
+          console.log("Error fetching role:", error);
+        });
+
+
+     
+    }
+    }, [])
     return (
         <div className="row gy-4">
-
+            <p>User ID: {id}</p>
             {/* Left Main Info */}
             <div className="col-lg-8">
                 <div className="card h-100">
@@ -12,15 +39,15 @@ const ViewProfileLayer = () => {
                         <div className="row">
                             <div className="col-sm-6 mb-3">
                                 <span className='text-xs'>Company Name</span>
-                                <p className='text-black'>Acme Corp</p>
+                                <p className='text-black'>{userData?.companyName || "Acme Corp"}</p>
                             </div>
                             <div className="col-sm-6 mb-3">
                                 <span className='text-xs'>Registration Number</span>
-                                <p className='text-black'>REG123456789</p>
+                                <p className='text-black'>{userData?.registrationNumber}</p>
                             </div>
                             <div className="col-sm-6 mb-3">
                                 <span className='text-xs'>Tax ID</span>
-                                <p className='text-black'>TAX987654321</p>
+                                <p className='text-black'>{userData?.registrationNumber}</p>
                             </div>
                             <div className="col-sm-6 mb-3">
                                 <span className='text-xs'>Industry</span>
@@ -55,11 +82,11 @@ const ViewProfileLayer = () => {
                             </div>
                             <div className="col-sm-6 mb-3">
                                 <span className='text-xs'>Email</span>
-                                <p className='text-black'>jane@acmecorp.com</p>
+                                <p className='text-black'>{userData?.email || "jane@acmecorp.com"}</p>
                             </div>
                             <div className="col-sm-6 mb-3">
                                 <span className='text-xs'>Phone</span>
-                                <p className='text-black'>+1 234 567 8900</p>
+                                <p className='text-black'>{userData?.contactNumber || "+1 234 567 8900" }</p>
                             </div>
                         </div>
                     </div>
@@ -73,20 +100,29 @@ const ViewProfileLayer = () => {
 
                     <div className="flex flex-column gap-3">
                         {/* Document Card */}
-                        <div style={{display:'flex'}} className="mb-3 flex items-center gap-3 p-3 border radius-16 bg-base">
-                            <div className="text-2xl text-danger">
-                                <i className="ri-file-pdf-2-line"></i>
-                            </div>
-                            <div className="flex-1 px-2 text-start">
-                                <p className="mb-1">Business Registration</p>
-                                <p className="text-sm text-muted">PDF · 2.3 MB</p>
-                            </div>
-                            <div className="text-xl text-primary cursor-pointer">
-                                <i className="ri-download-2-line"></i>
-                            </div>
-                        </div>
+<a href={userData?.tradeLicense} target="_blank" rel="noopener noreferrer">
+  <div
+    style={{ display: 'flex' }}
+    className="mb-3 flex items-center gap-3 p-3 border radius-16 bg-base transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]"
+  >
+    <div className="text-2xl text-danger">
+      <i className="ri-file-pdf-2-line"></i>
+    </div>
+    <div className="flex-1 px-2 text-start">
+      <p className="mb-1">Business Registration</p>
+      <p className="text-sm text-muted">PDF · 2.3 MB</p>
+    </div>
+    <div className="text-xl text-primary cursor-pointer">
+      <i className="ri-download-2-line"></i>
+    </div>
+  </div>
+</a>
 
-                        <div style={{display:'flex'}} className="flex items-center  gap-3 p-3 border radius-16 bg-base">
+
+                        
+
+                        <a href={userData?.vatCertificate} target="_blank">
+                        <div style={{ display: 'flex' }} className="flex items-center  gap-3 p-3 border radius-16 bg-base">
                             <div className="text-2xl text-danger">
                                 <i className="ri-file-pdf-2-line"></i>
                             </div>
@@ -98,6 +134,8 @@ const ViewProfileLayer = () => {
                                 <i className="ri-download-2-line"></i>
                             </div>
                         </div>
+                        </a>
+
                     </div>
                 </div>
             </div>
