@@ -7,26 +7,26 @@ const ViewProfileLayer = () => {
     const [userData, setUserData] = useState({})
 
     useEffect(() => {
-  const token = localStorage.getItem("accessToken");
+        const token = localStorage.getItem("accessToken");
 
-    if (token) {
-      
-      axios.get(`https://logistics.nicheperfumery.ae/user/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          setUserData(response.data.data);
-          console.log("Role data:", response.data.data);
-        })
-        .catch((error) => {
-          console.log("Error fetching role:", error);
-        });
+        if (token) {
+
+            axios.get(`https://logistics.nicheperfumery.ae/user/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((response) => {
+                    setUserData(response.data.data);
+                    console.log("Role data:", response.data.data);
+                })
+                .catch((error) => {
+                    console.log("Error fetching role:", error);
+                });
 
 
-     
-    }
+
+        }
     }, [])
     return (
         <div className="row gy-4">
@@ -86,7 +86,7 @@ const ViewProfileLayer = () => {
                             </div>
                             <div className="col-sm-6 mb-3">
                                 <span className='text-xs'>Phone</span>
-                                <p className='text-black'>{userData?.contactNumber || "+1 234 567 8900" }</p>
+                                <p className='text-black'>{userData?.contactNumber || "+1 234 567 8900"}</p>
                             </div>
                         </div>
                     </div>
@@ -100,40 +100,40 @@ const ViewProfileLayer = () => {
 
                     <div className="flex flex-column gap-3">
                         {/* Document Card */}
-<a href={userData?.tradeLicense} target="_blank" rel="noopener noreferrer">
-  <div
-    style={{ display: 'flex' }}
-    className="mb-3 flex items-center gap-3 p-3 border radius-16 bg-base transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]"
-  >
-    <div className="text-2xl text-danger">
-      <i className="ri-file-pdf-2-line"></i>
-    </div>
-    <div className="flex-1 px-2 text-start">
-      <p className="mb-1">Business Registration</p>
-      <p className="text-sm text-muted">PDF · 2.3 MB</p>
-    </div>
-    <div className="text-xl text-primary cursor-pointer">
-      <i className="ri-download-2-line"></i>
-    </div>
-  </div>
-</a>
+                        <a href={userData?.tradeLicense} target="_blank" rel="noopener noreferrer">
+                            <div
+                                style={{ display: 'flex' }}
+                                className="mb-3 flex items-center gap-3 p-3 border radius-16 bg-base transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]"
+                            >
+                                <div className="text-2xl text-danger">
+                                    <i className="ri-file-pdf-2-line"></i>
+                                </div>
+                                <div className="flex-1 px-2 text-start">
+                                    <p className="mb-1">Business Registration</p>
+                                    <p className="text-sm text-muted">PDF · 2.3 MB</p>
+                                </div>
+                                <div className="text-xl text-primary cursor-pointer">
+                                    <i className="ri-download-2-line"></i>
+                                </div>
+                            </div>
+                        </a>
 
 
-                        
+
 
                         <a href={userData?.vatCertificate} target="_blank">
-                        <div style={{ display: 'flex' }} className="flex items-center  gap-3 p-3 border radius-16 bg-base">
-                            <div className="text-2xl text-danger">
-                                <i className="ri-file-pdf-2-line"></i>
+                            <div style={{ display: 'flex' }} className="flex items-center  gap-3 p-3 border radius-16 bg-base">
+                                <div className="text-2xl text-danger">
+                                    <i className="ri-file-pdf-2-line"></i>
+                                </div>
+                                <div className="flex-1 px-2 text-start">
+                                    <p className="mb-1">Tax Certificate</p>
+                                    <p className="text-sm text-muted">PDF · 1.1 MB</p>
+                                </div>
+                                <div className="text-xl text-primary cursor-pointer">
+                                    <i className="ri-download-2-line"></i>
+                                </div>
                             </div>
-                            <div className="flex-1 px-2 text-start">
-                                <p className="mb-1">Tax Certificate</p>
-                                <p className="text-sm text-muted">PDF · 1.1 MB</p>
-                            </div>
-                            <div className="text-xl text-primary cursor-pointer">
-                                <i className="ri-download-2-line"></i>
-                            </div>
-                        </div>
                         </a>
 
                     </div>

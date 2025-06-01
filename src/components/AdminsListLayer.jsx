@@ -9,6 +9,8 @@ const AdminsListLayer = ({ user }) => {
     const [adminData, setAdminData] = useState([]);
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     const handleDelete = () => {
         Swal.fire({
@@ -29,21 +31,21 @@ const AdminsListLayer = ({ user }) => {
     // Fetch data on mount
     useEffect(() => {
         fetchAdmins();
-    }, []);
+    }, [currentPage]);
 
     const fetchAdmins = () => {
         const token = localStorage.getItem("accessToken");
         if (token) {
-            const page = 1;
             const limit = 10;
             axios
-                .get(`https://logistics.nicheperfumery.ae/user/list-admins?page=${page}&limit=${limit}&search=`, {
+                .get(`https://logistics.nicheperfumery.ae/user/list-admins?page=${currentPage}&limit=${limit}&search=`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 })
                 .then((response) => {
                     setAdminData(response?.data?.data?.data || []);
+                    setTotalPages(response?.data?.data.totalPages || 1);
                 })
                 .catch((error) => {
                     if(error.status == 401){
@@ -98,6 +100,7 @@ const AdminsListLayer = ({ user }) => {
     }, [adminData, sortConfig]);
 
     return (
+         <>
         <div className="card h-100 p-0 radius-12">
             <div className="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
                 <form
@@ -174,7 +177,7 @@ const AdminsListLayer = ({ user }) => {
                                                 <Icon icon="majesticons:eye-line" className="icon text-xl" />
                                             </button>
                                             <button
-                                                onClick={() => navigate('/view-profile')}
+                                                onClick={() => navigate(`/edit-admin/${user._id}`)}
                                                 type="button"
                                                 className="bg-hover-success-200 w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                             >
@@ -196,6 +199,38 @@ const AdminsListLayer = ({ user }) => {
                 </div>
             </div>
         </div>
+        {/* Pagination */}
+      <div className="d-flex justify-content-center align-items-center gap-2 my-5">
+        <button
+          className="btn btn-sm btn-outline"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+        >
+          Prev
+        </button>
+
+        {[...Array(totalPages)].map((_, index) => {
+          const pageNumber = index + 1;
+          return (
+            <button
+              key={pageNumber}
+              className={`btn btn-sm ${pageNumber === currentPage ? 'bg-black text-white' : 'btn-outline'}`}
+              onClick={() => setCurrentPage(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          );
+        })}
+
+        <button
+          className="btn btn-sm btn-outline"
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+        >
+          Next
+        </button>
+      </div>
+     </>
     );
 };
 

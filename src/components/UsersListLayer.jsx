@@ -16,7 +16,7 @@ const UsersListLayer = ({ user }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTab, setSelectedTab] = useState('pending');
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(1); 
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
 

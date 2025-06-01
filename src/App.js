@@ -16,6 +16,7 @@ import AddAdminPage from "./pages/AddAdminPage";
 import AddDriverPage from "./pages/AddDriverPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./pages/ProfilePage";
+import EditAdminPage from "./pages/EditAdminPage";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route exact path="/dashboard" element={<ProtectedRoute> <BlankPagePage /></ProtectedRoute> } />
 
 
+        <Route exact path='/edit-admin/:id' element={<ProtectedRoute><EditAdminPage user="admin" /></ProtectedRoute>} />
 
 
         {/* <Route exact path='/assign-role' element={<AssignRolePage />} /> */}
