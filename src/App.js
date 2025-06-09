@@ -17,6 +17,7 @@ import AddDriverPage from "./pages/AddDriverPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./pages/ProfilePage";
 import EditAdminPage from "./pages/EditAdminPage";
+import CreateUserPage from "./pages/CreateUserPage";
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
         {/* crud user */}
         <Route exact path='/add-admin' element={<ProtectedRoute><AddAdminPage user="admin" /></ProtectedRoute>} />
         <Route exact path='/add-user' element={<ProtectedRoute><AddUserPage user="user" title="Add Users" /></ProtectedRoute>} />
+        <Route exact path='/create-user' element={<ProtectedRoute><CreateUserPage title="Create Users" /></ProtectedRoute>} />
+
         <Route exact path='/add-driver' element={<ProtectedRoute><AddDriverPage user="driver" title="Add Drivers" /></ProtectedRoute>} />
 
 

@@ -83,11 +83,11 @@ const UsersListLayer = ({ user }) => {
             />
           </div>
           <Link
-            to={`/add-${user}`}
+            to={`/create-user`}
             className="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
           >
             <Icon icon="ic:baseline-plus" className="icon text-xl line-height-1" />
-            Add New User
+            Create New User
           </Link>
         </div>
 
