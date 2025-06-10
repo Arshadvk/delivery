@@ -7,6 +7,7 @@ const ViewProfileLayer = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState({});
   const [update, setUpdate] = useState(false);
+  const [isEdit , setIsEdit] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -71,9 +72,33 @@ const ViewProfileLayer = () => {
         {!userData?.isVerified ? (
         <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
         <div>
-
+          {isEdit ? (<div className="d-flex gap-2">
+            <button
+            type="submit"
+            onClick={()=>setIsEdit(true)}
+            className="btn bg-black text-white border border-black text-md px-56 py-12 radius-8"
+          >
+           <i class="ri-save-3-fill"></i> Save
+          </button>
+          <button
+            type="submit"
+            onClick={()=>setIsEdit(false)}
+            className="btn bg-red text-white border border-black text-md px-5 py-12 radius-8"
+          >
+           <i class="ri-close-fill"></i> Cancel
+          </button>
+          </div>) : (<div><button
+            type="submit"
+            onClick={()=>setIsEdit(true)}
+            className="btn bg-black text-white border border-black text-md px-5 py-12 radius-8"
+          >
+           <i class="ri-shield-check-fill"></i> Edit User
+          </button></div>)}
+        
+          
         </div>
         <div>
+          
           <button
             type="submit"
             onClick={()=>verifyUser()}
@@ -92,21 +117,23 @@ const ViewProfileLayer = () => {
             <div className="row">
               <div className="col-sm-6 mb-3">
                 <span className="text-xs">Company Name</span>
-                <p className="text-black">
-                  {userData?.companyName || "Acme Corp"}
-                </p>
+                {isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.companyName }/> </div>) : ( <p className="text-black">
+                  {userData?.companyName}
+                </p>)}
+               
+               
               </div>
               <div className="col-sm-6 mb-3">
                 <span className="text-xs">Registration Number</span>
-                <p className="text-black">{userData?.registrationNumber}</p>
+                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.registrationNumber }/> </div>) :( userData?.registrationNumber)}</p>
               </div>
               <div className="col-sm-6 mb-3">
                 <span className="text-xs">Tax ID</span>
-                <p className="text-black">{userData?.registrationNumber}</p>
+                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.registrationNumber }/> </div>) :( userData?.registrationNumber)}</p>
               </div>
               <div className="col-sm-6 mb-3">
                 <span className="text-xs">Industry</span>
-                <p className="text-black">Manufacturing</p>
+                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.registrationNumber }/> </div>) :( userData?.registrationNumber)}</p>
               </div>
             </div>
           </div>
@@ -129,23 +156,20 @@ const ViewProfileLayer = () => {
             <div className="row">
               <div className="col-sm-6 mb-3">
                 <span className="text-xs">Contact Person</span>
-                <p className="text-black">Jane Smith</p>
+                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.contactPersonName }/> </div>) :( userData?.contactPersonName)}</p>
               </div>
               <div className="col-sm-6 mb-3">
                 <span className="text-xs">Position</span>
-                <p className="text-black">Operations Manager</p>
+                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.contactPersonName }/> </div>) :( userData?.contactPersonName)}</p>
               </div>
               <div className="col-sm-6 mb-3">
                 <span className="text-xs">Email</span>
-                <p className="text-black">
-                  {userData?.email || "jane@acmecorp.com"}
-                </p>
+               
+                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.email }/> </div>) :( userData?.email)}</p>
               </div>
               <div className="col-sm-6 mb-3">
                 <span className="text-xs">Phone</span>
-                <p className="text-black">
-                  {userData?.contactNumber || "+1 234 567 8900"}
-                </p>
+                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.contactNumber }/> </div>) :( userData?.contactNumber)}</p>
               </div>
             </div>
           </div>
