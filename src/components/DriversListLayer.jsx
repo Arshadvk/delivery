@@ -170,14 +170,7 @@ const DriverListLayer = ({ user }) => {
                                     <td className="text-center">
                                         <div className="d-flex align-items-center gap-10 justify-content-center">
                                             <button
-                                                onClick={() => navigate('/view-profile')}
-                                                type="button"
-                                                className="bg-hover-info-200 w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            >
-                                                <Icon icon="majesticons:eye-line" className="icon text-xl" />
-                                            </button>
-                                            <button
-                                                onClick={() => navigate('/view-profile')}
+                                                onClick={() => navigate(`/edit-driver/${user?._id}`)}
                                                 type="button"
                                                 className="bg-hover-success-200 w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                             >

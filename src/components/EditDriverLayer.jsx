@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 
-const EditAdminLayer = () => {
+const EditDriverLayer = () => {
   const { id } = useParams();
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [userData, setUserData] = useState({});
@@ -234,4 +234,4 @@ const EditAdminLayer = () => {
   );
 };
 
-export default EditAdminLayer;
+export default EditDriverLayer;

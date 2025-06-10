@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./pages/ProfilePage";
 import EditAdminPage from "./pages/EditAdminPage";
 import CreateUserPage from "./pages/CreateUserPage";
+import EditDriverPage from "./pages/EditDriverPage";
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
 
 
         <Route exact path='/view-profile/:id' element={<ProtectedRoute><ViewProfilePage /></ProtectedRoute>} />
+
+        <Route exact path='/edit-driver/:id' element={<ProtectedRoute><EditDriverPage /></ProtectedRoute>} />
+        <Route exact path='/edit-admin/:id' element={<ProtectedRoute><EditAdminPage user="admin" /></ProtectedRoute>} />
+
         <Route exact path='/profile' element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
         {/* crud user */}
@@ -55,7 +60,6 @@ function App() {
         <Route exact path="/dashboard" element={<ProtectedRoute> <BlankPagePage /></ProtectedRoute> } />
 
 
-        <Route exact path='/edit-admin/:id' element={<ProtectedRoute><EditAdminPage user="admin" /></ProtectedRoute>} />
 
 
         {/* <Route exact path='/assign-role' element={<AssignRolePage />} /> */}
