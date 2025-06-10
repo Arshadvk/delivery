@@ -7,7 +7,7 @@ const ViewProfileLayer = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState({});
   const [update, setUpdate] = useState(false);
-  const [isEdit , setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -21,126 +21,188 @@ const ViewProfileLayer = () => {
         })
         .then((response) => {
           setUserData(response.data.data);
-          console.log("Role data:", response.data.data);
+          console.log(userData)
         })
         .catch((error) => {
-          console.log("Error fetching role:", error);
+          console.log("Error fetching user:", error);
         });
     }
   }, [update]);
 
-  
   const verifyUser = () => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "Do you want to verify this user?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, verify!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, verify!",
     }).then((result) => {
       if (result.isConfirmed) {
-        setUpdate(true)
+        setUpdate(true);
         const token = localStorage.getItem("accessToken");
         if (token) {
           axios
-            .post(`https://logistics.nicheperfumery.ae/user/${id}/verify`, {
+            .post(`https://logistics.nicheperfumery.ae/user/${id}/verify`, {}, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
             })
-            .then((response) => {
-              console.log("Role data:", response.data.data);
+            .then(() => {
+              Swal.fire("Verified!", "User has been verified.", "success");
             })
             .catch((error) => {
-              console.log("Error fetching role:", error);
+              console.log("Error verifying user:", error);
             });
         }
-        Swal.fire(
-          'Verified!',
-          'User has been verified.',
-          'success'
-        );
       }
-      
     });
   };
 
+  const submitSave = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update this user?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "green",
+      cancelButtonColor: "red",
+      confirmButtonText: "Yes, Save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const formData = new FormData();
+  
+        formData.append("companyName", userData?.companyName || "");
+        formData.append("registrationNumber", userData?.registrationNumber || "");
+        formData.append("name", userData?.name || "");
+        formData.append("email", userData?.email || "");
+        formData.append("contactNumber", userData?.contactNumber || "");
+        formData.append("isDeleted", userData?.isDeleted);
+        formData.append("isEmailVerified", userData?.isEmailVerified);
+        formData.append("isSuspended", userData?.isSuspended);
+        formData.append("isVerified", userData?.isVerified);
+        formData.append("userType", userData?.userType || "");
+  
+        if (userData?.roles && Array.isArray(userData.roles)) {
+          userData.roles.forEach((role, index) => {
+            formData.append(`roles[${index}]`, role);
+          });
+        }
+  
+        const token = localStorage.getItem("accessToken");
+  
+        axios
+          .put(
+            `https://logistics.nicheperfumery.ae/user/update-customer/${id}`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data", // Important
+              },
+            }
+          )
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Success!",
+              text: "Customer Update successful!",
+            });
+            setIsEdit(false);
+            setUpdate(!update); // Refresh data
+          })
+          .catch((error) => {
+            console.error("Update error:", error?.response?.data || error.message);
+            Swal.fire({
+              icon: "error",
+              title: "Update Failed",
+              text: "Check the form data. Server error.",
+            });
+          });
+      }
+    });
+  };
+  
+
   return (
     <div className="row gy-4">
-        {!userData?.isVerified ? (
+      {!userData?.isVerified && (
         <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
-        <div>
-          {isEdit ? (<div className="d-flex gap-2">
-            <button
-            type="submit"
-            onClick={()=>setIsEdit(true)}
-            className="btn bg-black text-white border border-black text-md px-56 py-12 radius-8"
-          >
-           <i class="ri-save-3-fill"></i> Save
-          </button>
-          <button
-            type="submit"
-            onClick={()=>setIsEdit(false)}
-            className="btn bg-red text-white border border-black text-md px-5 py-12 radius-8"
-          >
-           <i class="ri-close-fill"></i> Cancel
-          </button>
-          </div>) : (<div><button
-            type="submit"
-            onClick={()=>setIsEdit(true)}
-            className="btn bg-black text-white border border-black text-md px-5 py-12 radius-8"
-          >
-           <i class="ri-shield-check-fill"></i> Edit User
-          </button></div>)}
-        
-          
-        </div>
-        <div>
-          
-          <button
-            type="submit"
-            onClick={()=>verifyUser()}
-            className="btn bg-black text-white border border-black text-md px-56 py-12 radius-8"
-          >
-           <i class="ri-shield-check-fill"></i> verify user
-          </button>
-        </div>
-      </div>) :(<div></div>)}
-      
+          <div>
+            {isEdit ? (
+              <div className="d-flex gap-2">
+                <button
+                  onClick={submitSave}
+                  className="btn bg-black text-white border border-black text-md px-56 py-12 radius-8"
+                >
+                  <i className="ri-save-3-fill"></i> Save
+                </button>
+                <button
+                  onClick={() => setIsEdit(false)}
+                  className="btn bg-red text-white border border-black text-md px-5 py-12 radius-8"
+                >
+                  <i className="ri-close-fill"></i> Cancel
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setIsEdit(true)}
+                className="btn bg-black text-white border border-black text-md px-5 py-12 radius-8"
+              >
+                <i className="ri-edit-2-fill"></i> Edit User
+              </button>
+            )}
+          </div>
 
+          <button
+            onClick={verifyUser}
+            className="btn bg-black text-white border border-black text-md px-56 py-12 radius-8"
+          >
+            <i className="ri-shield-check-fill"></i> Verify User
+          </button>
+        </div>
+      )}
+
+      {/* Company Info */}
       <div className="col-lg-8">
         <div className="card h-100">
           <div className="card-body p-24">
             <h5 className="text-lg mb-4">Company Information</h5>
             <div className="row">
-              <div className="col-sm-6 mb-3">
-                <span className="text-xs">Company Name</span>
-                {isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.companyName }/> </div>) : ( <p className="text-black">
-                  {userData?.companyName}
-                </p>)}
-               
-               
-              </div>
-              <div className="col-sm-6 mb-3">
-                <span className="text-xs">Registration Number</span>
-                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.registrationNumber }/> </div>) :( userData?.registrationNumber)}</p>
-              </div>
-              <div className="col-sm-6 mb-3">
-                <span className="text-xs">Tax ID</span>
-                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.registrationNumber }/> </div>) :( userData?.registrationNumber)}</p>
-              </div>
-              <div className="col-sm-6 mb-3">
-                <span className="text-xs">Industry</span>
-                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.registrationNumber }/> </div>) :( userData?.registrationNumber)}</p>
-              </div>
+              {[
+                { label: "Company Name", key: "companyName" },
+                { label: "Registration Number", key: "registrationNumber" },
+                { label: "Tax ID", key: "taxId" },
+                { label: "Industry", key: "industry" },
+              ].map(({ label, key }) => (
+                <div className="col-sm-6 mb-3" key={key}>
+                  <span className="text-xs">{label}</span>
+                  {isEdit ? (
+                    <div>
+                    <input
+                      type="text"
+                      className="w-full border p-4 rounded px-5"
+                      value={userData[key] || ''}
+                      onChange={(e) =>
+                        setUserData((prevData) => ({
+                          ...prevData,
+                          [key]: e.target.value,
+                        }))
+                      }
+                    />
+                    </div>
+                  ) : (
+                    <p className="text-black">{userData[key]}</p>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Right Payment Box */}
+      {/* Payment Box */}
       <div className="col-lg-4">
         <div className="p-5 text-center border radius-16 bg-base h-100">
           <h3 className="text-2xl mb-2">Payment Due</h3>
@@ -148,37 +210,47 @@ const ViewProfileLayer = () => {
         </div>
       </div>
 
-      {/* Left Contact Info */}
+      {/* Contact Info */}
       <div className="col-lg-8">
         <div className="card h-100">
           <div className="card-body p-24">
             <h5 className="text-lg mb-5">Contact Information</h5>
             <div className="row">
-              <div className="col-sm-6 mb-3">
-                <span className="text-xs">Contact Person</span>
-                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.contactPersonName }/> </div>) :( userData?.contactPersonName)}</p>
-              </div>
-              <div className="col-sm-6 mb-3">
-                <span className="text-xs">Position</span>
-                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.contactPersonName }/> </div>) :( userData?.contactPersonName)}</p>
-              </div>
-              <div className="col-sm-6 mb-3">
-                <span className="text-xs">Email</span>
-               
-                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.email }/> </div>) :( userData?.email)}</p>
-              </div>
-              <div className="col-sm-6 mb-3">
-                <span className="text-xs">Phone</span>
-                <p className="text-black">{isEdit ? ( <div><input type="text"  className="w-full border p-4 rounded px-5" value={userData?.contactNumber }/> </div>) :( userData?.contactNumber)}</p>
-              </div>
+              {[
+                { label: "Contact Person", key: "name" },
+                { label: "Position", key: "position" },
+                { label: "Email", key: "email" },
+                { label: "Phone", key: "contactNumber" },
+              ].map(({ label, key }) => (
+                <div className="col-sm-6 mb-3" key={key}>
+                  <span className="text-xs">{label}</span>
+                  {isEdit ? (
+                    <div>
+                    <input
+                      type="text"
+                      className="w-full border p-4 rounded px-5"
+                      value={userData[key] || ''}
+                      onChange={(e) =>
+                        setUserData((prevData) => ({
+                          ...prevData,
+                          [key]: e.target.value,
+                        }))
+                      }
+                    />
+                    </div>
+                  ) : (
+                    <p className="text-black">{userData[key]}</p>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Right Document Cards */}
+      {/* Documents */}
       <div className="col-lg-4">
-        <div className="p-5 border radius-16 bg-base h-100">
+        <div className="p-5 border radius-16 bg-base h-full">
           <h3 className="text-xl mb-3">Documents</h3>
 
           <div className="flex flex-column gap-3">
@@ -196,7 +268,7 @@ const ViewProfileLayer = () => {
                   <i className="ri-file-pdf-2-line"></i>
                 </div>
                 <div className="flex-1 px-2 text-start">
-                  <p className="mb-1">Business Registration</p>
+                  <p className="mb-1">Business&nbsp;Registration</p>
                   <p className="text-sm text-muted">PDF · 2.3 MB</p>
                 </div>
                 <div className="text-xl text-primary cursor-pointer">
@@ -208,13 +280,13 @@ const ViewProfileLayer = () => {
             <a href={userData?.vatCertificate} target="_blank">
               <div
                 style={{ display: "flex" }}
-                className="flex items-center  gap-3 p-3 border radius-16 bg-base"
+                className="flex items-center gap-3 p-3 border radius-16 bg-base w-full"
               >
                 <div className="text-2xl text-danger">
                   <i className="ri-file-pdf-2-line"></i>
                 </div>
                 <div className="flex-1 px-2 text-start">
-                  <p className="mb-1">Tax Certificate</p>
+                  <p className="mb-1">Tax&nbsp;Certificate</p>
                   <p className="text-sm text-muted">PDF · 1.1 MB</p>
                 </div>
                 <div className="text-xl text-primary cursor-pointer">
@@ -226,7 +298,7 @@ const ViewProfileLayer = () => {
         </div>
       </div>
 
-      {/* Left Address */}
+      {/* Address Info */}
       <div className="col-lg-8">
         <div className="card h-100">
           <div className="card-body p-24">
@@ -239,7 +311,7 @@ const ViewProfileLayer = () => {
         </div>
       </div>
 
-      {/* Right Registration Details */}
+      {/* Registration Details */}
       <div className="col-lg-4">
         <div className="p-5 border radius-16 bg-base h-100">
           <h3 className="text-xl mb-3">Registration Details</h3>
@@ -254,7 +326,7 @@ const ViewProfileLayer = () => {
         </div>
       </div>
 
-      {/* Bottom Report (Revenue etc.) */}
+      {/* Report Section */}
       <div className="col-lg-12">
         <div className="card h-100">
           <div className="card-body p-24">
@@ -269,18 +341,10 @@ const ViewProfileLayer = () => {
               </div>
             </div>
             <div className="row text-center mt-4">
-              <div className="col">
-                <strong>Total Revenue</strong>
-              </div>
-              <div className="col">
-                <strong>Total Orders</strong>
-              </div>
-              <div className="col">
-                <strong>Total RTO</strong>
-              </div>
-              <div className="col">
-                <strong>RTO/Delivery Ratio</strong>
-              </div>
+              <div className="col"><strong>Total Revenue</strong></div>
+              <div className="col"><strong>Total Orders</strong></div>
+              <div className="col"><strong>Total RTO</strong></div>
+              <div className="col"><strong>RTO/Delivery Ratio</strong></div>
             </div>
           </div>
         </div>

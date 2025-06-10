@@ -140,9 +140,9 @@ const MasterLayout = ({ children }) => {
           <ul className='sidebar-menu' id='sidebar-menu'>
 
             <li className="sidebar-menu-group-title" onClick={toggleDropdown} style={{ cursor: "pointer" }}>
-              <i class="ri-dashboard-fill menu-icon"></i> Main Menu
+              <i className="ri-dashboard-fill menu-icon"></i> Main Menu
               <span style={{ float: 'right' }}>
-                {isDropdownOpen ? <i class="ri-arrow-down-s-line"></i> : <i class="ri-arrow-right-s-line"></i>}
+                {isDropdownOpen ? <i className="ri-arrow-down-s-line"></i> : <i className="ri-arrow-right-s-line"></i>}
               </span>
             </li>
 
@@ -161,8 +161,8 @@ const MasterLayout = ({ children }) => {
 
             <hr />
 
-            <li className='sidebar-menu-group-title' onClick={toggleOpreationDropdown} style={{ cursor: "pointer" }}><i class="ri-list-settings-line menu-icon"></i> Operations <span style={{ float: 'right' }}>
-              {isOpreationOpen ? <i class="ri-arrow-down-s-line"></i> : <i class="ri-arrow-right-s-line menu-icon"></i>}
+            <li className='sidebar-menu-group-title' onClick={toggleOpreationDropdown} style={{ cursor: "pointer" }}><i className="ri-list-settings-line menu-icon"></i> Operations <span style={{ float: 'right' }}>
+              {isOpreationOpen ? <i className="ri-arrow-down-s-line"></i> : <i className="ri-arrow-right-s-line menu-icon"></i>}
             </span></li>
 
             {/* Invoice Dropdown */}
@@ -195,8 +195,8 @@ const MasterLayout = ({ children }) => {
             )}
 
             <hr />
-            <li className='sidebar-menu-group-title' onClick={toggleManagementDropdown} style={{ cursor: "pointer" }}><i class="ri-team-fill"></i> User Management<span style={{ float: 'right' }}>
-              {isManagementOpen ? <i class="ri-arrow-down-s-line"></i> : <i class="ri-arrow-right-s-line"></i>}
+            <li className='sidebar-menu-group-title' onClick={toggleManagementDropdown} style={{ cursor: "pointer" }}><i className="ri-team-fill"></i> User Management<span style={{ float: 'right' }}>
+              {isManagementOpen ? <i className="ri-arrow-down-s-line"></i> : <i className="ri-arrow-right-s-line"></i>}
             </span></li>
             {isManagementOpen && (
               <ul className="submenu">
@@ -230,8 +230,8 @@ const MasterLayout = ({ children }) => {
 
             <hr />
 
-            <li className='sidebar-menu-group-title' onClick={toggleSettingsDropdown} style={{ cursor: "pointer" }}><i class="ri-settings-4-fill"></i> Settings<span style={{ float: 'right' }}>
-              {isSettingsOpen ? <i class="ri-arrow-down-s-line"></i> : <i class="ri-arrow-right-s-line"></i>}
+            <li className='sidebar-menu-group-title' onClick={toggleSettingsDropdown} style={{ cursor: "pointer" }}><i className="ri-settings-4-fill"></i> Settings<span style={{ float: 'right' }}>
+              {isSettingsOpen ? <i className="ri-arrow-down-s-line"></i> : <i className="ri-arrow-right-s-line"></i>}
             </span></li>
             {isSettingsOpen && (
               <ul className="submenu">

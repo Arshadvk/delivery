@@ -6,20 +6,20 @@ import 'highlight.js/styles/github.css';
 const TermsConditionLayer = () => {
     const quillRef = useRef(null);
     const [value, setValue] = useState(`<div id="editor">
-        <p class="">This policy explains how 6amMart website and related applications (the “Site”, “we” or “us”)
+        <p className="">This policy explains how 6amMart website and related applications (the “Site”, “we” or “us”)
           collects, uses, shares and protects the personal information that we collect through this site or
           different channels. 6amMart has established the site to link up the users </p>
         <p><br /></p>
 
         <h6>Using ChatGPT</h6>
-        <p class="">This policy explains how 6amMart website and related applications (the “Site”, “we” or “us”)
+        <p className="">This policy explains how 6amMart website and related applications (the “Site”, “we” or “us”)
           collects, uses, shares and protects the personal information that we collect through this site or
           different channels. 6amMart has established the site to link up the users who need foods or grocery items
           to be shipped or </p>
         <p><br /></p>
 
         <h6>Intellectual Property</h6>
-        <p class="">This policy explains how 6amMart website and related applications (the “Site”, “we” or “us”)
+        <p className="">This policy explains how 6amMart website and related applications (the “Site”, “we” or “us”)
           collects, uses, shares and protects the personal information that we collect through this site or
           different channels. 6amMart has established the site to link up the users who need foods or grocery items
           to be shipped or delivered by the riders from the affiliated restaurants or shops to the desired location.
@@ -27,7 +27,7 @@ const TermsConditionLayer = () => {
         <p><br /></p>
 
         <h6>Using ChatGPT</h6>
-        <p class="">This policy explains how 6amMart website and related applications (the “Site”, “we” or “us”)
+        <p className="">This policy explains how 6amMart website and related applications (the “Site”, “we” or “us”)
           collects, uses, shares and protects the personal information that we collect through this site or
           different channels. 6amMart has established the site to link up the users who need foods or grocery items
           to be shipped or delivered by the riders from the affiliated restaurants or shops to the desired location.
