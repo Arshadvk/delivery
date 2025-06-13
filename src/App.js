@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import AddUserPage from "./pages/AddUserPage";
 import ErrorPage from "./pages/ErrorPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
@@ -22,7 +22,8 @@ import EditDriverPage from "./pages/EditDriverPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
+
       <RouteScrollToTop />
       <Routes>
 
@@ -161,7 +162,7 @@ function App() {
 
         <Route exact path='*' element={<ErrorPage />} />
       </Routes>
-    </BrowserRouter>
+      </HashRouter>
   );
 }
 
