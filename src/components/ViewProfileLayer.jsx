@@ -84,12 +84,6 @@ const ViewProfileLayer = () => {
         formData.append("isVerified", userData?.isVerified);
         formData.append("userType", userData?.userType || "");
   
-        if (userData?.roles && Array.isArray(userData.roles)) {
-          userData.roles.forEach((role, index) => {
-            formData.append(`roles[${index}]`, role);
-          });
-        }
-  
         const token = localStorage.getItem("accessToken");
   
         axios

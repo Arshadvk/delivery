@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditAdminLayer = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [userData, setUserData] = useState({});
   const [permissionOptions, setPermissionOptions] = useState([]);
@@ -98,6 +99,7 @@ const EditAdminLayer = () => {
         title: "Success!",
         text: "Admin Created successful!",
       });
+      navigate('/admins-list');
       }).catch((error)=>{
         console.log(error)
         Swal.fire({
@@ -167,7 +169,7 @@ const EditAdminLayer = () => {
                       placeholder="Enter email address"
                     />
                   </div>
-                  <div className="mb-20">
+                  <div className="mb-20" hidden>
                     <label
                       htmlFor="userType"
                       className="form-label fw-semibold text-primary-light text-sm mb-8"

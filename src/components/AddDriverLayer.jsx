@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddDriverLayer = () => {
+  const navigate = useNavigate();
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [permissionOptions, setPermissionOptions] = useState([]);
   const [isShowPassword, setShowPassword] = useState(false);
@@ -71,6 +73,7 @@ const AddDriverLayer = () => {
         title: "Success!",
         text: "Driver Created successful!",
       });
+      navigate('/drivers-list');
       }).catch((error)=>{
         console.log(error)
         Swal.fire({
@@ -139,7 +142,7 @@ const AddDriverLayer = () => {
                       placeholder="Enter email address"
                     />
                   </div>
-                  <div className="mb-20">
+                  <div className="mb-20" hidden>
                     <label
                       htmlFor="userType"
                       className="form-label fw-semibold text-primary-light text-sm mb-8"

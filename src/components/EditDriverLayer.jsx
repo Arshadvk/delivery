@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditDriverLayer = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [userData, setUserData] = useState({});
   const [permissionOptions, setPermissionOptions] = useState([]);
@@ -87,7 +88,7 @@ const EditDriverLayer = () => {
     const userData = {
       email: email,
       name: name ,
-      userType: "admin",
+      userType: "driver",
       roles: selectedRoles?.map((perm) => perm.value)
     }
     try {
@@ -96,14 +97,15 @@ const EditDriverLayer = () => {
          Swal.fire({
         icon: "success",
         title: "Success!",
-        text: "Admin Created successful!",
+        text: "Driver Update successful!",
       });
+      navigate('/drivers-list');
       }).catch((error)=>{
         console.log(error)
         Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Admin Creation failed. Please check your credentials.",
+        text: "Driver Update failed. Please check your credentials.",
       });
       })
      
@@ -111,7 +113,7 @@ const EditDriverLayer = () => {
        Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Admin Creation failed. Please check your credentials.",
+        text: "Driver Update failed. Please check your credentials.",
       });
     } finally {
       setLoading(false);
@@ -167,7 +169,7 @@ const EditDriverLayer = () => {
                       placeholder="Enter email address"
                     />
                   </div>
-                  <div className="mb-20">
+                  <div className="mb-20" hidden>
                     <label
                       htmlFor="userType"
                       className="form-label fw-semibold text-primary-light text-sm mb-8"
@@ -178,7 +180,7 @@ const EditDriverLayer = () => {
                       type="text"
                       className="form-control radius-8"
                       name="userType"
-                      value={"admin"}
+                      value={"driver"}
                       required
                       placeholder="Enter email address"
                     />

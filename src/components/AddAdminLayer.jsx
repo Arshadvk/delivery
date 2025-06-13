@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddAdminLayer = () => {
+  const navigate = useNavigate();
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [permissionOptions, setPermissionOptions] = useState([]);
   const [isShowPassword, setShowPassword] = useState(false);
@@ -65,12 +67,14 @@ const AddAdminLayer = () => {
     }
     try {
       console.log(userData)
-      axios.post("https://logistics.nicheperfumery.ae/auth/create-user", userData).then((res)=>{
+      axios.post("https://logistics.nicheperfumery.ae/auth/create-user", userData)
+      .then((res)=>{
          Swal.fire({
         icon: "success",
         title: "Success!",
         text: "Admin Created successful!",
       });
+      navigate('/admins-list');
       }).catch((error)=>{
         console.log(error)
         Swal.fire({
@@ -139,7 +143,7 @@ const AddAdminLayer = () => {
                       placeholder="Enter email address"
                     />
                   </div>
-                  <div className="mb-20">
+                  <div className="mb-20" hidden>
                     <label
                       htmlFor="userType"
                       className="form-label fw-semibold text-primary-light text-sm mb-8"
