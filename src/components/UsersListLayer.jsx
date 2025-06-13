@@ -18,6 +18,8 @@ const UsersListLayer = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); 
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +29,7 @@ const UsersListLayer = ({ user }) => {
   const fetchUsers = (status, search = '', page = 1) => {
     const token = localStorage.getItem("accessToken");
     if (token) {
+      setLoading(true); // Start loading
       axios.get(
         `https://logistics.nicheperfumery.ae/user/list-customers?page=${page}&limit=10&search=${search}&status=${status}`,
         {
@@ -41,6 +44,8 @@ const UsersListLayer = ({ user }) => {
         })
         .catch((error) => {
           console.error("Error fetching users:", error);
+        }).finally(() => {
+          setLoading(false); // Stop loading
         });
     }
   };
@@ -68,6 +73,19 @@ const UsersListLayer = ({ user }) => {
 
   return (
     <>
+      {loading ? (
+        <div className="flex items-center justify-center text-center mt-10">
+          <div>
+            <span
+              className="spinner-border spinner-border-sm me-2 pt-10"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Loading...
+          </div>
+        </div>
+        ) : (
+          <div>
       <div className="card h-100 p-0 radius-12">
         {/* Header */}
         <div className="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
@@ -208,6 +226,8 @@ const UsersListLayer = ({ user }) => {
           Next
         </button>
       </div>
+      </div>
+        )}
     </>
   );
 };

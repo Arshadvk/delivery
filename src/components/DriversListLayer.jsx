@@ -11,6 +11,8 @@ const DriverListLayer = ({ user }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(false);
+    
 
     const handleDelete = () => {
         Swal.fire({
@@ -36,6 +38,7 @@ const DriverListLayer = ({ user }) => {
     const fetchAdmins = () => {
         const token = localStorage.getItem("accessToken");
         if (token) {
+            setLoading(true); // Start loading
             const limit = 10;
             axios
                 .get(`https://logistics.nicheperfumery.ae/user/list-admins?page=${currentPage}&limit=${limit}&search=`, {
@@ -52,7 +55,9 @@ const DriverListLayer = ({ user }) => {
                         localStorage.removeItem('accessToken')
                     }
                     console.error("Error fetching admins:", error);
-                });
+                }).finally(() => {
+                    setLoading(false); // Stop loading
+                  });
         }
     };
 
@@ -101,6 +106,19 @@ const DriverListLayer = ({ user }) => {
 
     return (
          <>
+          {loading ? (
+        <div className="flex items-center justify-center text-center mt-10">
+          <div>
+            <span
+              className="spinner-border spinner-border-sm me-2 pt-10"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Loading...
+          </div>
+        </div>
+        ) : (
+        <div>
         <div className="card h-100 p-0 radius-12">
             <div className="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
                 <form
@@ -223,6 +241,8 @@ const DriverListLayer = ({ user }) => {
           Next
         </button>
       </div>
+      </div>
+         )}
      </>
     );
 };

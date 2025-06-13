@@ -15,6 +15,7 @@ const ViewProfilePage = () => {
         <Breadcrumb title="View Profile" />
 
         {/* ViewProfileLayer */}
+        
         <ViewProfileLayer />
 
       </MasterLayout>

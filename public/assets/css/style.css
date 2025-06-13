@@ -15741,3 +15741,7 @@ td.fc-header-center {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.translate-middle {
+  transform: translate(-50%, -50%);
+}

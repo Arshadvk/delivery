@@ -41,7 +41,6 @@ function App() {
 
 
         <Route exact path='/view-profile/:id' element={<ProtectedRoute><ViewProfilePage /></ProtectedRoute>} />
-
         <Route exact path='/edit-driver/:id' element={<ProtectedRoute><EditDriverPage /></ProtectedRoute>} />
         <Route exact path='/edit-admin/:id' element={<ProtectedRoute><EditAdminPage user="admin" /></ProtectedRoute>} />
 
